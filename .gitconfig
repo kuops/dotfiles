@@ -1,0 +1,25 @@
+[credential]
+    helper = cache --timeout 3600
+[core]
+    editor = vim
+    quotepath = false
+[color]
+    ui = always
+    branch = always
+    diff = always
+    interactive = always
+    status = always
+    grep = always
+    pager = true
+    decorate = always
+    showbranch = always
+[http "https://github.com"]
+    proxy = socks5://127.0.0.1:7890
+    sslVerify = false
+[user]
+    email = opshsy@gmail.com
+    name = Shiny Hou
+[includeIf "gitdir:~/work/"]
+    path = ~/work/.gitconfig
+[pull]
+    ff = only
