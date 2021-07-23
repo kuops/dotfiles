@@ -15,6 +15,10 @@
   relativenumber = false
   bootstrap_before = "init#before"
   bootstrap_after = "init#after"
+  updatetime=100
+  autowite = 1
+  rehash256 = 1
+  project_rooter_automatically = true
 
 [[layers]]
   name = "autocomplete"
@@ -22,8 +26,8 @@
   auto_completion_tab_key_behavior = "smart"
 [[layers]]
   name = "shell"
-  default_position = "top"
-  default_height = 30
+  default_position = "bottom"
+  default_height = 20
 [[custom_plugins]]
   name = "ryanoasis/vim-devicons"
   merged = 0
@@ -33,6 +37,8 @@
   name = "fzf"
 [[layers]]
   name = "git"
+[[layers]]
+    name = 'VersionControl'
 [[layers]]
   name = "chinese"
 [[layers]]
