@@ -1,0 +1,86 @@
+[options]
+  colorscheme = "onedark"
+  colorscheme_bg = "dark"
+  enable_guicolors = true
+  statusline_separator = "nil"
+  statusline_iseparator = "bar"
+  buffer_index_type = 4
+  enable_tabline_filetype_icon = true
+  enable_statusline_mode = false
+  filetree_direction = "left"
+  filemanager = "nerdtree"
+  snippet_engine = "ultisnips"
+  vim_help_language = "cn"
+  autocomplete_method = "coc"
+  relativenumber = false
+  bootstrap_before = "init#before"
+  bootstrap_after = "init#after"
+  updatetime=100
+  autowite = 1
+  rehash256 = 1
+  project_rooter_automatically = true
+
+[[layers]]
+  name = "autocomplete"
+  auto_completion_return_key_behavior = "complete"
+  auto_completion_tab_key_behavior = "smart"
+[[layers]]
+  name = "shell"
+  default_position = "bottom"
+  default_height = 20
+[[custom_plugins]]
+  name = "ryanoasis/vim-devicons"
+  merged = 0
+[[layers]]
+  name = "colorscheme"
+[[layers]]
+  name = "fzf"
+[[layers]]
+  name = "git"
+[[layers]]
+    name = 'VersionControl'
+[[layers]]
+  name = "chinese"
+[[layers]]
+  name = "lang#markdown"
+  enabled_formater = "prettier"
+[[layers]]
+  name = "lang#go"
+[[layers]]
+  name = "lang#sh"
+[[layers]]
+  name = "lang#yaml"
+[[layers]]
+  name = "lang#dockerfile"
+[[layers]]
+  name = "lang#toml"
+[[layers]]
+  name = "lang#vim"
+[[layers]]
+  name = "lang#vim"
+[[layers]]
+  name = "format"
+  format_on_save = true
+[[layers]]
+  name = "checkers"
+  lint_on_save="true"
+  show_cursor_error="false"
+# [[layers]]
+  # name = "lsp"
+  # filetypes = [
+    # "go",
+    # "dockerfile",
+    # "sh"
+  # ]
+  # [layers.override_cmd]
+     # go = ["gopls","-mode","stdio"]
+     # dockerfile = ["docker-langserver", "--stdio"]
+[[layers]]
+  name = "foldsearch"
+[[layers]]
+  name = "gtags"
+  gtagslabel = "ctags"
+[[layers]]
+  name = "default"
+[[layers]]
+  name = "tmux"

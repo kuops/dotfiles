@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# Set golang private
+export GOPRIVATE="*.example.com"
+
+# Set sshx command
+SSHX_2FA_KEY=""
+SSHX_USER=""
+SSHX_PASSWORD=""
+SSHX_HOST=""
+SSHX_PORT=""
+alias sshx='sshpass -p ${SSHX_PASSWORD}$(oathtool -b --totp ${SSHX_2FA_KEY}) ssh -p ${SSHX_PORT} ${SSHX_USER}@${SSHX_HOST}'
