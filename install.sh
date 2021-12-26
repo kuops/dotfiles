@@ -110,6 +110,7 @@ add_homebrew_taps() {
   if ! [ -d "$HOMEBREW_CORE_REPO" ];then
     brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.aliyun.com/homebrew/homebrew-core.git
   fi
+
 }
 
 # Install oh-my-zsh and plugins
@@ -273,7 +274,6 @@ install_java() {
   if ! jenv versions |grep '1.8' &> /dev/null && [ -d "${JAVA8_HOME}" ];then
     jenv add "${JAVA8_HOME}"
   fi
-  jenv versions
   if ! jenv plugins --enabled|grep export &> /dev/null;then
     jenv enable-plugin export
   fi
@@ -376,7 +376,7 @@ install_kubernetes_tools() {
   if [ "${#NEED_INSTALL_KUBE_LIST[@]}" -ne 0 ];then
     brew install "${NEED_INSTALL_KUBE_LIST[@]}"
   fi
-  if [[ ${NEED_INSTALL_KUBE_LIST[*]} =~ kubectl ]];then
+  if [[ ${NEED_INSTALL_KUBE_LIST[*]} =~ kubernetes-cli ]];then
     brew link --overwrite kubernetes-cli
   fi
 }
