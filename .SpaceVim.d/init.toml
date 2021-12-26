@@ -43,7 +43,7 @@
   name = "chinese"
 [[layers]]
   name = "lang#markdown"
-  enabled_formater = "prettier"
+  enabled_formater = ['prettier']
 [[layers]]
   name = "lang#go"
 [[layers]]
