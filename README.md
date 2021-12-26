@@ -2,6 +2,8 @@
 
 My macOS dotfiles and homebrew applications.
 
+> :cn: all package manager toools configured china mirror.
+
 ## Installation
 
 Install xcode command line tools:
