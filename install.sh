@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 set -o pipefail
 set +o posix
 
@@ -10,6 +10,7 @@ HOMEBREW_FORMULAS_LIST=(
   ctags
   diffutils
   findutils
+  fzf
   gawk
   gibo
   git
@@ -29,7 +30,6 @@ HOMEBREW_FORMULAS_LIST=(
   luarocks
   make
   mdbook
-  mitmproxy
   moreutils
   oath-toolkit
   python
@@ -57,9 +57,9 @@ HOMEBREW_CASKS_LIST=(
   kindle
   qq
   qqmusic
-  sunloginclient
   telegram
   tencent-lemon
+  tencent-meeting
   the-unarchiver
   vagrant
   virtualbox
@@ -83,11 +83,11 @@ create_backup_dir() {
 install_homebrew() {
   if ! command -v brew &> /dev/null;then
     # Set mirror of Homebrew/brew here
-    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.aliyun.com/homebrew/brew.git"
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
     # Set mirror of Homebrew/homebrew-core here
-    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.aliyun.com/homebrew/homebrew-core.git"
+    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
     # Set mirror of Homebrew/homebrew-cask here
-    export HOMEBREW_CASK_GIT_REMOTE="https://mirrors.aliyun.com/homebrew/homebrew-cask.git"
+    export HOMEBREW_CASK_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-cask.git"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
 }
@@ -95,20 +95,20 @@ install_homebrew() {
 # Set homebrew env
 set_homebrew_env(){
   INSTALLED_FORMULAS_LIST=()
-  while IFS='' read -r line; do INSTALLED_FORMULAS_LIST+=("$line"); done < <(brew list --formula)
   INSTALLED_CASKS_LIST=()
+  while IFS='' read -r line; do INSTALLED_FORMULAS_LIST+=("$line"); done < <(brew list --formula)
   while IFS='' read -r line; do INSTALLED_CASKS_LIST+=("$line"); done < <(brew list --cask)
 }
 
 # Tap the formula repositorys
 add_homebrew_taps() {
-  HOMEBREW_CASK_REPO=$(brew --repo homebrew/cask)
-  HOMEBREW_CORE_REPO=$(brew --repo homebrew/core)
+  local HOMEBREW_CASK_REPO=$(brew --repo homebrew/cask)
+  local HOMEBREW_CORE_REPO=$(brew --repo homebrew/core)
   if ! [ -d "$HOMEBREW_CASK_REPO" ];then
-    brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.aliyun.com/homebrew/homebrew-cask.git
+    brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.ustc.edu.cn/homebrew-cask.git
   fi
   if ! [ -d "$HOMEBREW_CORE_REPO" ];then
-    brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.aliyun.com/homebrew/homebrew-core.git
+    brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.ustc.edu.cn/homebrew-core.git
   fi
 
 }
@@ -144,7 +144,8 @@ chsh_zsh(){
 
 # Install formulas
 install_formulas() {
-  NEED_INSTALL_FORMULAS_LIST=()
+  local NEED_INSTALL_FORMULAS_LIST=()
+  local item
   for item in "${HOMEBREW_FORMULAS_LIST[@]}";do
     if ! [[ ${INSTALLED_FORMULAS_LIST[*]} =~ ${item} ]];then
       NEED_INSTALL_FORMULAS_LIST+=("${item}")
@@ -157,7 +158,8 @@ install_formulas() {
 
 # Install casks
 install_casks() {
-  NEED_INSTALL_CASKS_LIST=()
+  local NEED_INSTALL_CASKS_LIST=()
+  local item
   for item in "${HOMEBREW_CASKS_LIST[@]}";do
     if ! [[ ${INSTALLED_CASKS_LIST[*]} =~ ${item} ]];then
       NEED_INSTALL_CASKS_LIST+=("${item}")
@@ -175,13 +177,12 @@ install_neovim() {
   fi
   if ! [ -d "${HOME}/.SpaceVim" ];then
     curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
-    sh -c 'cd ~/.SpaceVim/bundle/vimproc.vim && make'
   fi
 }
 
 # Install pip packages
 install_pip_packages(){
-  PIP_LIST=(
+  local PIP_LIST=(
     neovim
     s3cmd
     ansible
@@ -190,10 +191,11 @@ install_pip_packages(){
     httpie
     ranger-fm
     mycli
+    mitmproxy
   )
-  INSTALLED_PIP_LIST=()
+  local INSTALLED_PIP_LIST=()
   while IFS='' read -r line; do INSTALLED_PIP_LIST+=("$line"); done < <(pip3 freeze |awk -F '=' '{print $1}')
-  NEED_INSTALL_PIP_LIST=()
+  local NEED_INSTALL_PIP_LIST=()
   for item in "${PIP_LIST[@]}";do
     if ! [[ ${INSTALLED_PIP_LIST[*]} =~ ${item} ]];then
       NEED_INSTALL_PIP_LIST+=("${item}")
@@ -222,20 +224,21 @@ install_node() {
 
 # Install yarn global packages
 install_yarn_global_packages() {
-  YARN_LIST=(
+  local YARN_LIST=(
     bash-language-server
     dockerfile-language-server-nodejs
     gitmoji-cli
     prettier
   )
-  INSTALLED_YARN_LIST=()
-  YARN_GLOBAL_PACKAGE_JSON="${HOME}/.config/yarn/global/package.json"
+  local INSTALLED_YARN_LIST=()
+  local YARN_GLOBAL_PACKAGE_JSON="${HOME}/.config/yarn/global/package.json"
   if [ -f "${YARN_GLOBAL_PACKAGE_JSON}" ];then
     while IFS='' read -r line;do
       INSTALLED_YARN_LIST+=("$line")
     done < <(jq -r '.dependencies|keys[]' < "${YARN_GLOBAL_PACKAGE_JSON}")
   fi
-  NEED_INSTALL_YARN_LIST=()
+  local NEED_INSTALL_YARN_LIST=()
+  local item
   for item in "${YARN_LIST[@]}";do
     if ! [[ ${INSTALLED_YARN_LIST[*]} =~ ${item} ]];then
       NEED_INSTALL_YARN_LIST+=("${item}")
@@ -248,14 +251,14 @@ install_yarn_global_packages() {
 
 # Install java
 install_java() {
-  local HOMEBREW_CASK_VERSIONS_GIT_REMOTE="https://mirrors.aliyun.com/homebrew/homebrew-cask-versions.git"
+  local HOMEBREW_CASK_VERSIONS_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-cask-versions.git"
   export PATH="$HOME/.jenv/bin:$PATH"
   eval "$(jenv init -)"
-  HOMEBREW_JAVA_LIST=(
+  local HOMEBREW_JAVA_LIST=(
     temurin
     temurin8
   )
-  NEED_INSTALL_JAVA_LIST=()
+  local NEED_INSTALL_JAVA_LIST=()
   for item in "${HOMEBREW_JAVA_LIST[@]}";do
     if ! [[ ${INSTALLED_CASKS_LIST[*]} =~ ${item} ]];then
       NEED_INSTALL_JAVA_LIST+=("${item}")
@@ -265,12 +268,7 @@ install_java() {
     brew tap --custom-remote --force-auto-update homebrew/cask-versions ${HOMEBREW_CASK_VERSIONS_GIT_REMOTE}
     brew install --cask "${NEED_INSTALL_JAVA_LIST[@]}"
   fi
-  JAVA17_HOME="$(/usr/libexec/java_home)"
-  JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
-  if ! jenv versions |grep '17' &> /dev/null && [ -d "${JAVA17_HOME}" ];then
-    jenv add "${JAVA17_HOME}"
-    jenv global 17
-  fi
+  local JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
   if ! jenv versions |grep '1.8' &> /dev/null && [ -d "${JAVA8_HOME}" ];then
     jenv add "${JAVA8_HOME}"
   fi
@@ -288,7 +286,7 @@ install_java() {
 # Install local formulas
 install_local_formulas() {
   if ! brew list sshpass &> /dev/null;then
-    brew install homebrew/sshpass.rb
+    brew install ./homebrew/sshpass.rb
   fi
   if ! [ -f /usr/local/bin/ip ];then
     curl -sSLo /usr/local/bin/ip https://github.com/brona/iproute2mac/raw/master/src/ip.py
@@ -347,12 +345,17 @@ update_dotfiles() {
 
 # Set iterm2
 set_iterm2() {
-  if !  diff iterm2/com.googlecode.iterm2.plist "${HOME}/Library/Preferences/com.googlecode.iterm2.plist" &> /dev/null;then
-    [ -f "${HOME}/Library/Preferences/com.googlecode.iterm2.plist" ] && mv "${HOME}/Library/Preferences/com.googlecode.iterm2.plist" "${BACKUP_DIR}/com.googlecode.iterm2.plist.$(date +%F-%H%M%S)"
-    cp iterm2/com.googlecode.iterm2.plist "${HOME}/Library/Preferences/com.googlecode.iterm2.plist"
-  fi
+  local style
+  local FONT_BASE_URL="https://github.com/romkatv/powerlevel10k-media/raw/master"
+  for style in Regular Bold Italic 'Bold Italic'; do
+    local FONT_FILE="MesloLGS NF ${style}.ttf"
+    if ! [ -f "${HOME}/Library/Fonts/$FONT_FILE" ];then
+      curl -fsSL -o ${HOME}/Library/Fonts/$FONT_FILE "$FONT_BASE_URL/${FONT_FILE// /%20}"
+    fi
+  done
   if ! ls /usr/local/bin/iterm2-*.sh &> /dev/null;then
-    cp  iterm2/iterm2-*.sh /usr/local/bin
+    cp iterm2/iterm2-*.sh /usr/local/bin
+    plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o "${HOME}/Library/Preferences/com.googlecode.iterm2.plist"
   fi
 }
 
@@ -376,9 +379,9 @@ install_kubernetes_tools() {
   if [ "${#NEED_INSTALL_KUBE_LIST[@]}" -ne 0 ];then
     brew install "${NEED_INSTALL_KUBE_LIST[@]}"
   fi
-  if [[ ${NEED_INSTALL_KUBE_LIST[*]} =~ kubernetes-cli ]];then
-    brew link --overwrite kubernetes-cli
-  fi
+  #if [[ ${NEED_INSTALL_KUBE_LIST[*]} =~ kubernetes-cli ]];then
+  #  brew link --overwrite kubernetes-cli
+  #fi
 }
 
 main() {

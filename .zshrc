@@ -144,7 +144,7 @@ export GOPROXY="https://goproxy.io,https://goproxy.cn,direct"
 export PATH="$HOME/go/bin:$PATH"
 
 # Set homebrew-bottles mirror
-export HOMEBREW_BOTTLE_DOMAIN='https://mirrors.aliyun.com/homebrew/homebrew-bottles'
+export HOMEBREW_BOTTLE_DOMAIN='https://mirrors.ustc.edu.cn/homebrew-bottles'
 
 # Use gnu command tools
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"

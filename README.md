@@ -23,6 +23,7 @@ Set command line proxy:
 ```bash
 ALL_PROXY="proxy_ip:port"
 NO_PROXY=".cn,.taobao.org,.aliyun.com,localhost,127.0.0.1"
+
 ```
 
 Running script `install.sh`:
