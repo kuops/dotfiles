@@ -102,8 +102,10 @@ set_homebrew_env(){
 
 # Tap the formula repositorys
 add_homebrew_taps() {
-  local HOMEBREW_CASK_REPO=$(brew --repo homebrew/cask)
-  local HOMEBREW_CORE_REPO=$(brew --repo homebrew/core)
+  local HOMEBREW_CASK_REPO
+  local HOMEBREW_CORE_REPO
+  HOMEBREW_CASK_REPO=$(brew --repo homebrew/cask)
+  HOMEBREW_CORE_REPO=$(brew --repo homebrew/core)
   if ! [ -d "$HOMEBREW_CASK_REPO" ];then
     brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.ustc.edu.cn/homebrew-cask.git
   fi
@@ -212,9 +214,10 @@ install_node() {
     brew install nvm
   fi
   export NVM_DIR="${HOME}/.nvm"
-  # shellcheck disable=SC1091
-  # shellcheck disable=SC2046
-  source $(brew --prefix nvm)/nvm.sh
+  if brew --prefix nvm &> /dev/null;then
+    # shellcheck disable=SC1091
+    source "$(brew --prefix nvm)/nvm.sh"
+  fi
   if ! nvm list stable &> /dev/null;then
     nvm install stable
     nvm use stable
@@ -268,7 +271,8 @@ install_java() {
     brew tap --custom-remote --force-auto-update homebrew/cask-versions ${HOMEBREW_CASK_VERSIONS_GIT_REMOTE}
     brew install --cask "${NEED_INSTALL_JAVA_LIST[@]}"
   fi
-  local JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
+  local JAVA8_HOME
+  JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
   if ! jenv versions |grep '1.8' &> /dev/null && [ -d "${JAVA8_HOME}" ];then
     jenv add "${JAVA8_HOME}"
   fi
@@ -350,7 +354,7 @@ set_iterm2() {
   for style in Regular Bold Italic 'Bold Italic'; do
     local FONT_FILE="MesloLGS NF ${style}.ttf"
     if ! [ -f "${HOME}/Library/Fonts/$FONT_FILE" ];then
-      curl -fsSL -o ${HOME}/Library/Fonts/$FONT_FILE "$FONT_BASE_URL/${FONT_FILE// /%20}"
+      curl -fsSL -o "${HOME}/Library/Fonts/$FONT_FILE" "$FONT_BASE_URL/${FONT_FILE// /%20}"
     fi
   done
   if ! ls /usr/local/bin/iterm2-*.sh &> /dev/null;then
@@ -379,9 +383,9 @@ install_kubernetes_tools() {
   if [ "${#NEED_INSTALL_KUBE_LIST[@]}" -ne 0 ];then
     brew install "${NEED_INSTALL_KUBE_LIST[@]}"
   fi
-  #if [[ ${NEED_INSTALL_KUBE_LIST[*]} =~ kubernetes-cli ]];then
-  #  brew link --overwrite kubernetes-cli
-  #fi
+  if ! [[ "$(readlink /usr/local/bin/kubectl)" =~ "kubernetes-cli" ]];then
+    brew link --overwrite kubernetes-cli
+  fi
 }
 
 main() {
