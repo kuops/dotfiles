@@ -23,7 +23,6 @@ Set command line proxy:
 ```bash
 ALL_PROXY="proxy_ip:port"
 NO_PROXY=".cn,.taobao.org,.aliyun.com,localhost,127.0.0.1"
-
 ```
 
 Running script `install.sh`:
@@ -59,10 +58,12 @@ pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -
 nvm install other nodejs:
 
 ```bash
-# nvm install nodejs 8
+# nvm install nodejs version x
 nvm install 8
-# switch to version 8
+# switch once version x
 nvm use 8
+# switch global version x
+nvm alias default 8
 ```
 
 jenv switch java version
@@ -70,8 +71,8 @@ jenv switch java version
 ```bash
 # list versions
 jenv versions
-# switch to java 8
+# global switch to java 8
 jenv global 1.8
-# local version
-jenv local 17
+# current directory project switch to java 8
+jenv local 1.8
 ```
