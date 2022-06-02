@@ -314,10 +314,6 @@ update_dotfiles() {
     [ -f "${HOME}/.zshrc" ] && mv "${HOME}/.zshrc" "${BACKUP_DIR}/.zshrc.$(date +%F-%H%M%S)"
     cp .zshrc "${HOME}/.zshrc"
   fi
-  if ! diff -q .gitconfig "${HOME}/.gitconfig" &> /dev/null;then
-    [ -f "${HOME}/.gitconfig" ] && mv "${HOME}/.gitconfig" "${BACKUP_DIR}/.gitconfig.$(date +%F-%H%M%S)"
-    cp .gitconfig "${HOME}/.gitconfig"
-  fi
   if ! diff -q .ssh/config "${HOME}/.ssh/config" &> /dev/null;then
     mkdir -p "${HOME}/.ssh"
     [ -f "${HOME}/.ssh/config" ] && mv "${HOME}/.ssh/config" "${BACKUP_DIR}/ssh_config.$(date +%F-%H%M%S)"
@@ -388,6 +384,13 @@ install_kubernetes_tools() {
   fi
 }
 
+update_gitconfig() {
+  if ! diff -q .gitconfig "${HOME}/.gitconfig" &> /dev/null;then
+    [ -f "${HOME}/.gitconfig" ] && mv "${HOME}/.gitconfig" "${BACKUP_DIR}/.gitconfig.$(date +%F-%H%M%S)"
+    cp .gitconfig "${HOME}/.gitconfig"
+  fi
+}
+
 main() {
   create_backup_dir
   install_homebrew
@@ -406,6 +409,7 @@ main() {
   update_dotfiles
   set_tmux
   set_iterm2
+  update_gitconfig
   chsh_zsh
 }
 
