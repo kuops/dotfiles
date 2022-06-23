@@ -43,6 +43,12 @@ cd dotfiles && bash install.sh
 
 ## Others
 
+tmux install plugin use tpm:
+
+```bash
+prefix(ctrl + a) + I
+```
+
 update spacevim plugins:
 
 ```bash
