@@ -310,7 +310,7 @@ set_tmux() {
 
 # Update dotfiles
 update_dotfiles() {
-  if ! .zshrc "${HOME}/.zshrc" &> /dev/null;then
+  if ! diff -q .zshrc "${HOME}/.zshrc" &> /dev/null;then
     [ -f "${HOME}/.zshrc" ] && mv "${HOME}/.zshrc" "${BACKUP_DIR}/.zshrc.$(date +%F-%H%M%S)"
     cp .zshrc "${HOME}/.zshrc"
   fi
@@ -340,6 +340,9 @@ update_dotfiles() {
   if ! diff -qdur .SpaceVim.d "${HOME}/.SpaceVim.d" &> /dev/null;then
     [ -d "${HOME}/.SpaceVim.d" ] && mv "${HOME}/.SpaceVim.d" "${BACKUP_DIR}/.SpaceVim.d.$(date +%F-%H%M%S)"
     cp -r .SpaceVim.d "${HOME}/.SpaceVim.d"
+  fi
+  if ! diff -q .fzf.zsh "${HOME}/.fzf.zsh" &> /dev/null;then
+    cp .fzf.zsh "${HOME}/.fzf.zsh"
   fi
 }
 

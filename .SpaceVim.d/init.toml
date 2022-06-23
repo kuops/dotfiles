@@ -47,6 +47,8 @@
 [[layers]]
   name = "lang#go"
 [[layers]]
+  name = "lang#python"
+[[layers]]
   name = "lang#sh"
 [[layers]]
   name = "lang#yaml"
@@ -57,29 +59,14 @@
 [[layers]]
   name = "lang#vim"
 [[layers]]
-  name = "lang#vim"
-[[layers]]
   name = "format"
   format_on_save = true
 [[layers]]
   name = "checkers"
   lint_on_save="true"
   show_cursor_error="false"
-# [[layers]]
-  # name = "lsp"
-  # filetypes = [
-    # "go",
-    # "dockerfile",
-    # "sh"
-  # ]
-  # [layers.override_cmd]
-     # go = ["gopls","-mode","stdio"]
-     # dockerfile = ["docker-langserver", "--stdio"]
 [[layers]]
   name = "foldsearch"
-[[layers]]
-  name = "gtags"
-  gtagslabel = "ctags"
 [[layers]]
   name = "default"
 [[layers]]
