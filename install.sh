@@ -47,7 +47,7 @@ HOMEBREW_FORMULAS_LIST=(
 
 HOMEBREW_CASKS_LIST=(
   android-platform-tools
-  clashx
+  clashx-pro
   dash
   docker
   feishu
