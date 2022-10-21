@@ -171,6 +171,8 @@ alias grep="grep --color"
 
 # Neovim python_host_prog
 export PYTHON3_HOST_PROG=/usr/local/bin/python3
+# nvm mirrors
+export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 
 # Import work need variables
 [ -f ~/.zshrc_work ] && source ~/.zshrc_work
