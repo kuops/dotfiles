@@ -54,7 +54,9 @@ HOMEBREW_CASKS_LIST=(
   gas-mask
   google-chrome
   iterm2
+  iina
   kindle
+  kodi
   qq
   qqmusic
   telegram
@@ -66,6 +68,7 @@ HOMEBREW_CASKS_LIST=(
   virtualbox-extension-pack
   visual-studio-code
   wechat
+  wechatwork
   wireshark
   wpsoffice
 )
