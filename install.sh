@@ -65,7 +65,6 @@ HOMEBREW_CASKS_LIST=(
   the-unarchiver
   vagrant
   virtualbox
-  virtualbox-extension-pack
   visual-studio-code
   wechat
   wechatwork
