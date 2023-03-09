@@ -195,6 +195,7 @@ install_pip_packages(){
     httpie
     ranger-fm
     mycli
+    pgcli
     mitmproxy
   )
   local INSTALLED_PIP_LIST=()
