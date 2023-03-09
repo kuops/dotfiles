@@ -31,6 +31,7 @@ HOMEBREW_FORMULAS_LIST=(
   make
   mdbook
   moreutils
+  nmap
   oath-toolkit
   python
   ripgrep
