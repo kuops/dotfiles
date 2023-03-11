@@ -67,6 +67,7 @@ HOMEBREW_CASKS_LIST=(
   vagrant
   virtualbox
   visual-studio-code
+  vmware-fusion
   wechat
   wechatwork
   wireshark
