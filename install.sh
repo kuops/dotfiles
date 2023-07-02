@@ -35,6 +35,7 @@ HOMEBREW_FORMULAS_LIST=(
   oath-toolkit
   python
   ripgrep
+  rust
   shellcheck
   telnet
   tig
@@ -48,6 +49,7 @@ HOMEBREW_FORMULAS_LIST=(
 
 HOMEBREW_CASKS_LIST=(
   android-platform-tools
+  balenaetcher
   clashx-pro
   dash
   docker
