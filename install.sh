@@ -107,19 +107,19 @@ set_homebrew_env(){
 }
 
 # Tap the formula repositorys
-add_homebrew_taps() {
-  local HOMEBREW_CASK_REPO
-  local HOMEBREW_CORE_REPO
-  HOMEBREW_CASK_REPO=$(brew --repo homebrew/cask)
-  HOMEBREW_CORE_REPO=$(brew --repo homebrew/core)
-  if ! [ -d "$HOMEBREW_CASK_REPO" ];then
-    brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.ustc.edu.cn/homebrew-cask.git
-  fi
-  if ! [ -d "$HOMEBREW_CORE_REPO" ];then
-    brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.ustc.edu.cn/homebrew-core.git
-  fi
-
-}
+# add_homebrew_taps() {
+#   local HOMEBREW_CASK_REPO
+#   local HOMEBREW_CORE_REPO
+#   HOMEBREW_CASK_REPO=$(brew --repo homebrew/cask)
+#   HOMEBREW_CORE_REPO=$(brew --repo homebrew/core)
+#   if ! [ -d "$HOMEBREW_CASK_REPO" ];then
+#     brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.ustc.edu.cn/homebrew-cask.git
+#   fi
+#   if ! [ -d "$HOMEBREW_CORE_REPO" ];then
+#     brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.ustc.edu.cn/homebrew-core.git
+#   fi
+#
+# }
 
 # Install oh-my-zsh and plugins
 install_ohmyzsh(){
@@ -405,7 +405,7 @@ main() {
   create_backup_dir
   install_homebrew
   set_homebrew_env
-  add_homebrew_taps
+  # add_homebrew_taps
   install_ohmyzsh
   install_formulas
   install_casks
