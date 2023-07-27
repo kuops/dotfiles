@@ -60,6 +60,7 @@ HOMEBREW_CASKS_LIST=(
   iina
   kindle
   kodi
+  microsoft-office
   qq
   qqmusic
   telegram
@@ -73,7 +74,6 @@ HOMEBREW_CASKS_LIST=(
   wechat
   wechatwork
   wireshark
-  wpsoffice
 )
 
 BACKUP_DIR="${HOME}/.backup"
