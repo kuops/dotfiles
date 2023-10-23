@@ -48,8 +48,10 @@ HOMEBREW_FORMULAS_LIST=(
 )
 
 HOMEBREW_CASKS_LIST=(
+  adrive
   android-platform-tools
   balenaetcher
+  citrix-workspace
   clashx-pro
   dash
   docker
@@ -59,8 +61,9 @@ HOMEBREW_CASKS_LIST=(
   iterm2
   iina
   kindle
-  kodi
+  #kodi
   microsoft-office
+  microsoft-remote-desktop
   qq
   qqmusic
   telegram
@@ -70,7 +73,7 @@ HOMEBREW_CASKS_LIST=(
   vagrant
   virtualbox
   visual-studio-code
-  vmware-fusion
+  #vmware-fusion
   wechat
   wechatwork
   wireshark
@@ -85,15 +88,17 @@ create_backup_dir() {
   fi
 }
 
+# Set mirror of Homebrew/brew here
+export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+export HOMEBREW_CASK_VERSIONS_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-versions.git"
+
 # Install homebrew
 install_homebrew() {
   if ! command -v brew &> /dev/null;then
-    # Set mirror of Homebrew/brew here
-    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-    # Set mirror of Homebrew/homebrew-core here
-    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
-    # Set mirror of Homebrew/homebrew-cask here
-    export HOMEBREW_CASK_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-cask.git"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
 }
@@ -107,19 +112,9 @@ set_homebrew_env(){
 }
 
 # Tap the formula repositorys
-# add_homebrew_taps() {
-#   local HOMEBREW_CASK_REPO
-#   local HOMEBREW_CORE_REPO
-#   HOMEBREW_CASK_REPO=$(brew --repo homebrew/cask)
-#   HOMEBREW_CORE_REPO=$(brew --repo homebrew/core)
-#   if ! [ -d "$HOMEBREW_CASK_REPO" ];then
-#     brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.ustc.edu.cn/homebrew-cask.git
-#   fi
-#   if ! [ -d "$HOMEBREW_CORE_REPO" ];then
-#     brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.ustc.edu.cn/homebrew-core.git
-#   fi
-#
-# }
+add_homebrew_taps() {
+  brew tap --custom-remote --force-auto-update homebrew/cask-versions ${HOMEBREW_CASK_VERSIONS_GIT_REMOTE}
+}
 
 # Install oh-my-zsh and plugins
 install_ohmyzsh(){
@@ -183,9 +178,9 @@ install_neovim() {
   if ! brew list neovim &> /dev/null;then
     brew install neovim
   fi
-  if ! [ -d "${HOME}/.SpaceVim" ];then
-    curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
-  fi
+  #if ! [ -d "${HOME}/.SpaceVim" ];then
+  #  curl -sLf https://spacevim.org/install.sh | bash -s -- --install neovim
+  #fi
 }
 
 # Install pip packages
@@ -255,42 +250,41 @@ install_yarn_global_packages() {
     fi
   done
   if [ "${#NEED_INSTALL_YARN_LIST[@]}" -ne 0 ];then
-    yarn global add "${NEED_INSTALL_YARN_LIST[@]}" --registry https://registry.npm.taobao.org/
+    yarn global add "${NEED_INSTALL_YARN_LIST[@]}" --registry https://registry.npmmirror.com
   fi
 }
 
 # Install java
 install_java() {
-  local HOMEBREW_CASK_VERSIONS_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-cask-versions.git"
   export PATH="$HOME/.jenv/bin:$PATH"
   eval "$(jenv init -)"
   local HOMEBREW_JAVA_LIST=(
-    temurin
+    openjdk
     temurin8
+    maven
   )
   local NEED_INSTALL_JAVA_LIST=()
   for item in "${HOMEBREW_JAVA_LIST[@]}";do
-    if ! [[ ${INSTALLED_CASKS_LIST[*]} =~ ${item} ]];then
+    if ! [[ ${INSTALLED_CASKS_LIST[*]} =~ ${item} ]] && ! [[ ${INSTALLED_FORMULAS_LIST[*]} =~ ${item} ]];then
       NEED_INSTALL_JAVA_LIST+=("${item}")
     fi
   done
   if [ "${#NEED_INSTALL_JAVA_LIST[@]}" -ne 0 ];then
-    brew tap --custom-remote --force-auto-update homebrew/cask-versions ${HOMEBREW_CASK_VERSIONS_GIT_REMOTE}
-    brew install --cask "${NEED_INSTALL_JAVA_LIST[@]}"
+    brew install "${NEED_INSTALL_JAVA_LIST[@]}"
   fi
-  local JAVA8_HOME
-  JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
-  if ! jenv versions |grep '1.8' &> /dev/null && [ -d "${JAVA8_HOME}" ];then
-    jenv add "${JAVA8_HOME}"
+  local TEMURIN8_JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+  local OPENJDK_JAVA_HOME="/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
+  if ! jenv versions |grep 'temurin64-1.8' &> /dev/null && [ -d "${TEMURIN8_JAVA_HOME}" ];then
+    jenv add "${TEMURIN8_JAVA_HOME}"
+  fi
+  if ! jenv versions |grep 'openjdk64-' &> /dev/null && [ -d "${OPENJDK_JAVA_HOME}" ];then
+    jenv add "${OPENJDK_JAVA_HOME}"
   fi
   if ! jenv plugins --enabled|grep export &> /dev/null;then
     jenv enable-plugin export
   fi
   if ! jenv plugins --enabled|grep maven &> /dev/null;then
     jenv enable-plugin maven
-  fi
-  if ! command -v mvn &> /dev/null;then
-    brew install --ignore-dependencies maven
   fi
 }
 
@@ -395,17 +389,20 @@ install_kubernetes_tools() {
 }
 
 update_gitconfig() {
-  if ! diff -q .gitconfig "${HOME}/.gitconfig" &> /dev/null;then
-    [ -f "${HOME}/.gitconfig" ] && mv "${HOME}/.gitconfig" "${BACKUP_DIR}/.gitconfig.$(date +%F-%H%M%S)"
-    cp .gitconfig "${HOME}/.gitconfig"
-  fi
+  if [ -f "${HOME}/.gitconfig" ];then
+    if ! diff -q .gitconfig "${HOME}/.gitconfig" &> /dev/null;then
+      [ -f "${HOME}/.gitconfig" ] && mv "${HOME}/.gitconfig" "${BACKUP_DIR}/.gitconfig.$(date +%F-%H%M%S)"
+      cp .gitconfig "${HOME}/.gitconfig"
+    fi
+  else
+
 }
 
 main() {
   create_backup_dir
   install_homebrew
   set_homebrew_env
-  # add_homebrew_taps
+  add_homebrew_taps
   install_ohmyzsh
   install_formulas
   install_casks
