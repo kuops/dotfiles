@@ -329,19 +329,19 @@ chsh_zsh() {
 }
 
 main() {
-  # create_backup_dir
-  # install_homebrew
-  # install_ohmyzsh
-  # install_homebrew_formulas_packages
-  # install_homebrew_casks_packages
-  # install_nvm_nodejs
-  # install_pnpm_global_packages
-  # install_pip_packages
-  # install_neovim
-  # set_kubectl
-  # update_dotfiles
-  # set_tmux
-  # set_iterm2
+  create_backup_dir
+  install_homebrew
+  install_ohmyzsh
+  install_homebrew_formulas_packages
+  install_homebrew_casks_packages
+  install_nvm_nodejs
+  install_pnpm_global_packages
+  install_pip_packages
+  install_neovim
+  set_kubectl
+  update_dotfiles
+  set_tmux
+  set_iterm2
   update_gitconfig
   chsh_zsh
 }
