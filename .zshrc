@@ -78,21 +78,20 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    zsh-completions
-    you-should-use
-    nvm
-    yarn
-    pip
-    vagrant
-    tig
-    jenv
-    docker
-    docker-compose
-    kubectl
-    helm
+  docker
+  docker-compose
+  git
+  helm
+  istioctl
+  kubectl
+  nvm
+  pip
+  tig
+  vagrant
+  you-should-use
+  zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -138,6 +137,7 @@ source <(fzf --zsh)
 # Set pnpm
 export PNPM_HOME="${HOME}/Library/pnpm"
 export PATH="$PATH:$PNPM_HOME"
+source <(pnpm completion zsh)
 
 # Set golang
 export GOPROXY="https://goproxy.io,https://goproxy.cn,direct"
@@ -173,13 +173,13 @@ alias ll='ls -lh'
 alias grep="grep --color"
 
 # Neovim python_host_prog
-export PYTHON3_HOST_PROG=/usr/local/bin/python3
+export PYTHON3_HOST_PROG="/usr/local/bin/python3"
 
 # Set python PATH
 export PATH="$PATH:$(brew --prefix python)/libexec/bin"
 
 # set nvm mirrors
-export NVM_NODEJS_ORG_MIRROR=https://registry.npmmirror.com/node
+export NVM_NODEJS_ORG_MIRROR="https://registry.npmmirror.com/node"
 
 # Import work need variables
 [ -f ~/.zshrc_work ] && source ~/.zshrc_work
