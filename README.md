@@ -1,10 +1,15 @@
 # dotfiles
 
+![Static Badge](https://img.shields.io/badge/macOS-14.6.1-blue?style=flat-square&logo=Apple)
+![Static Badge](https://img.shields.io/badge/processors-Intel-blue?style=flat-square)
+
 My macOS dotfiles and homebrew applications.
 
 > :cn: all package manager toools configured china mirror.
 
 ## Installation
+
+### Prerequisites
 
 Install xcode command line tools:
 
@@ -12,73 +17,57 @@ Install xcode command line tools:
 xcode-select --install
 ```
 
-Git clone this repository:
+Clone this repository using Git:
 
 ```bash
 git clone git@github.com:kuops/dotfiles.git
 ```
 
-Set command line proxy:
+### Configure Proxy
+
+If necessary, set up command line proxy:
 
 ```bash
 export ALL_PROXY="proxy_ip:port"
-export NO_PROXY=".cn,.npmmirror.com,.aliyun.com,localhost,127.0.0.1"
+export NO_PROXY=".cn,.npmmirror.com,localhost,127.0.0.1"
 ```
 
-Running script `install.sh`:
+### Run the Installation Script
 
-The script will:
-
--   Install homebrew.
--   Set homebrew china mirrors.
--   Install popular applications and command line tools.
--   Install ohmyzsh and change shell to zsh.
--   Install neovim and spacevim settings.
--   Set pip,yarn,npm,git,ssh preferences.
--   Set Iterm2 plist preferences.
+Navigate into the repository directory and run the installation script:
 
 ```bash
 cd dotfiles && bash install.sh
 ```
 
-## Others
+### Script Functionality
 
-tmux install plugin use tpm:
+- Installs Homebrew.
+- Configures Homebrew to use China mirrors.
+- Installs popular applications and command-line tools.
+- Sets up Oh My Zsh and switches the shell to Zsh.
+- Configures Neovim and sets up LazyVim.
+- Configures preferences for pip, npm, pnpm, git, and SSH.
+- Sets up Iterm2 preferences.
+
+## Additional Information
+
+### Using Gas Mask
+
+To use Gas Mask, execute the following command before opening the application:
+
+```bash
+sudo spctl --master-disable
+```
+
+### tmux Plugin Installation
+
+Install tmux plugins using tpm:
 
 ```bash
 prefix(ctrl + a) + I
 ```
 
-update spacevim plugins:
+### Install Microsoft Office For macOS
 
-```bash
-vim -c SPUpdate
-```
-
-update pip plugins:
-
-```bash
-pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U
-```
-
-nvm install other nodejs:
-
-```bash
-# nvm install nodejs version x
-nvm install 8
-# switch once version x
-nvm use 8
-# switch global version x
-nvm alias default 8
-```
-
-jenv switch java version
-
-```bash
-# list versions
-jenv versions
-# global switch to java 8
-jenv global 1.8
-# current directory project switch to java 8
-jenv local 1.8
-```
+Fllow the [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS) tutorial install it.

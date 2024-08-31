@@ -130,14 +130,14 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Set fzf command
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # Set vim to neovim
 [ -f /usr/local/bin/nvim ] && alias vim='/usr/local/bin/nvim'
 
-# Set jenv command
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# Set pnpm
+export PNPM_HOME="${HOME}/Library/pnpm"
+export PATH="$PATH:$PNPM_HOME"
 
 # Set golang
 export GOPROXY="https://goproxy.io,https://goproxy.cn,direct"
@@ -148,8 +148,6 @@ export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottle
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
-export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
-export HOMEBREW_CASK_VERSIONS_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-versions.git"
 
 # Use gnu command tools
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
@@ -176,8 +174,12 @@ alias grep="grep --color"
 
 # Neovim python_host_prog
 export PYTHON3_HOST_PROG=/usr/local/bin/python3
-# nvm mirrors
-export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
+
+# Set python PATH
+export PATH="$PATH:$(brew --prefix python)/libexec/bin"
+
+# set nvm mirrors
+export NVM_NODEJS_ORG_MIRROR=https://registry.npmmirror.com/node
 
 # Import work need variables
 [ -f ~/.zshrc_work ] && source ~/.zshrc_work

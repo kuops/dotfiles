@@ -14,7 +14,7 @@
     decorate = always
     showbranch = always
 [http "https://github.com"]
-    proxy = socks5://127.0.0.1:7890
+    proxy = socks5://127.0.0.1:7897
     sslVerify = false
 [user]
     email = opshsy@gmail.com
