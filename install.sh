@@ -24,7 +24,6 @@ HOMEBREW_FORMULAS_LIST=(
   htop
   hugo
   iproute2mac
-  jenv
   jq
   less
   lrzsz
