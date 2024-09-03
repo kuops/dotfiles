@@ -71,3 +71,7 @@ prefix(ctrl + a) + I
 ### Install Microsoft Office For macOS
 
 Fllow the [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS) tutorial install it.
+
+### Install jetbrains IDE
+
+[jetbra.in](https://3.jetbra.in/)
