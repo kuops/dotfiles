@@ -143,6 +143,9 @@ source <(pnpm completion zsh)
 export GOPROXY="https://goproxy.io,https://goproxy.cn,direct"
 export PATH="$HOME/go/bin:$PATH"
 
+# Set JAVA_HOME
+export JAVA_HOME="$(/usr/libexec/java_home)"
+
 # Set homebrew-bottles mirror
 export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"

@@ -1,6 +1,6 @@
 # dotfiles
 
-![Static Badge](https://img.shields.io/badge/macOS-14.6.1-blue?style=flat-square&logo=Apple)
+![Static Badge](https://img.shields.io/badge/macOS-26.1-blue?style=flat-square&logo=Apple)
 ![Static Badge](https://img.shields.io/badge/processors-Intel-blue?style=flat-square)
 
 My macOS dotfiles and homebrew applications.
