@@ -30,11 +30,13 @@ HOMEBREW_FORMULAS_LIST=(
   lua
   luarocks
   make
+  maven
   mdbook
   moreutils
   nmap
   oath-toolkit
   python
+  pipx
   ripgrep
   rust
   shellcheck
@@ -60,22 +62,20 @@ HOMEBREW_FORMULAS_LIST=(
 HOMEBREW_CASKS_LIST=(
   adrive
   android-platform-tools
+  baidunetdisk
   citrix-workspace
   clash-verge-rev
-  dash
   docker
-  gas-mask
+  font-cascadia-code-nf
   google-chrome
+  graalvm-jdk
   iterm2
   iina
-  microsoft-openjdk@21
-  microsoft-remote-desktop
   qq
   qqmusic
   telegram
   tencent-lemon
   tencent-meeting
-  the-unarchiver
   vagrant
   virtualbox
   visual-studio-code
@@ -216,18 +216,15 @@ install_pnpm_global_packages() {
 # 安装 Python pip 全局软件包
 install_pip_packages() {
   local PIP_LIST=(
-    neovim
     s3cmd
     ansible
     ansible-lint
-    jedi-language-server
-    ranger-fm
     mycli
     pgcli
     mitmproxy
   )
   local INSTALLED_PIP_LIST=()
-  while IFS='' read -r line; do INSTALLED_PIP_LIST+=("$line"); done < <(pip3 freeze | awk -F '=' '{print $1}')
+  while IFS='' read -r line; do INSTALLED_PIP_LIST+=("$line"); done < <(pipx list --short | awk '{print $1}')
   local NEED_INSTALL_PIP_LIST=()
   for item in "${PIP_LIST[@]}"; do
     if ! [[ ${INSTALLED_PIP_LIST[*]} =~ ${item} ]]; then
@@ -235,7 +232,7 @@ install_pip_packages() {
     fi
   done
   if [ "${#NEED_INSTALL_PIP_LIST[@]}" -ne 0 ]; then
-    pip3 install --index-url "${PIP_INDEX_URL}" --break-system-packages "${NEED_INSTALL_PIP_LIST[@]}"
+    pipx install --index-url "${PIP_INDEX_URL}" --verbose "${NEED_INSTALL_PIP_LIST[@]}"
   fi
 }
 
@@ -289,18 +286,14 @@ update_dotfiles() {
 
 # 设置 iterm2
 set_iterm2() {
-  local style
-  local FONT_BASE_URL="https://github.com/romkatv/powerlevel10k-media/raw/master"
-  for style in Regular Bold Italic 'Bold Italic'; do
-    local FONT_FILE="MesloLGS NF ${style}.ttf"
-    if ! [ -f "${HOME}/Library/Fonts/$FONT_FILE" ]; then
-      curl -fsSL -o "${HOME}/Library/Fonts/$FONT_FILE" "$FONT_BASE_URL/${FONT_FILE// /%20}"
-    fi
-  done
   if ! ls /usr/local/bin/iterm2-*.sh &>/dev/null; then
     cp iterm2/iterm2-*.sh /usr/local/bin
-    envsubst <iterm2/com.googlecode.iterm2.plist.tpl >iterm2/com.googlecode.iterm2.plist
-    plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o "${HOME}/Library/Preferences/com.googlecode.iterm2.plist"
+    # backup existing iterm2 preferences
+    # plutil -convert xml1 ${HOME}/Library/Preferences/com.googlecode.iterm2.plist  -o "${HOME}/Library/Preferences/com.googlecode.iterm2.plist"
+    # change $HOME in template to actual home directory
+    #envsubst <iterm2/com.googlecode.iterm2.plist.tpl >iterm2/com.googlecode.iterm2.plist
+    # replace iterm2 preferences with the new one
+    #plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o "${HOME}/Library/Preferences/com.googlecode.iterm2.plist"
   fi
 }
 

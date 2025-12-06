@@ -123,7 +123,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Set proxy
-#export ALL_PROXY=http://127.0.0.1:7890
+#export ALL_PROXY=127.0.0.1:7897
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -136,7 +136,7 @@ source <(fzf --zsh)
 
 # Set pnpm
 export PNPM_HOME="${HOME}/Library/pnpm"
-export PATH="$PATH:$PNPM_HOME"
+export PATH="$PNPM_HOME:$PATH"
 source <(pnpm completion zsh)
 
 # Set golang
@@ -150,24 +150,17 @@ export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebr
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
 
 # Use gnu command tools
-export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gawk/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/diffutils/bin:$PATH"
 export PATH="/usr/local/opt/unzip/bin:$PATH"
-export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
-export MANPATH="/usr/local/opt/grep/libexec/gnuman:$MANPATH"
-export MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:${MANPATH}"
-export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
-export MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
-export MANPATH="/usr/local/opt/make/libexec/gnuman:${MANPATH}"
+export PATH="/usr/local/opt/diffutils/bin:$PATH"
 export MANPATH="/usr/local/opt/diffutils/share/man:${MANPATH}"
-export MANPATH="/usr/local/opt/unzip/share/man:${MANPATH}"
-export MANPATH="/usr/local/opt/gnu-getopt/share/man:${MANPATH}"
 alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias grep="grep --color"
@@ -176,7 +169,7 @@ alias grep="grep --color"
 export PYTHON3_HOST_PROG="/usr/local/bin/python3"
 
 # Set python PATH
-export PATH="$PATH:$(brew --prefix python)/libexec/bin"
+export PATH="$(brew --prefix python)/libexec/bin:$HOME/.local/bin:$PATH"
 
 # set nvm mirrors
 export NVM_NODEJS_ORG_MIRROR="https://registry.npmmirror.com/node"
