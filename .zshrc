@@ -175,7 +175,7 @@ export PYTHON3_HOST_PROG="/usr/local/bin/python3"
 export PATH="$(brew --prefix python)/libexec/bin:$HOME/.local/bin:$PATH"
 
 # set nvm mirrors
-export NVM_NODEJS_ORG_MIRROR="https://registry.npmmirror.com/node"
+export NVM_NODEJS_ORG_MIRROR="https://npmmirror.com/mirrors/node/"
 
 # Import work need variables
 [ -f ~/.zshrc_work ] && source ~/.zshrc_work
