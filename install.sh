@@ -65,6 +65,7 @@ HOMEBREW_CASKS_LIST=(
   baidunetdisk
   citrix-workspace
   clash-verge-rev
+  claude-code
   docker
   font-cascadia-code-nf
   google-chrome
@@ -189,10 +190,9 @@ install_pnpm_global_packages() {
     export PATH="$PATH:$PNPM_HOME"
   fi
   local PNPM_LIST=(
-    bash-language-server
-    dockerfile-language-server-nodejs
+    @iflow-ai/iflow-cli
     gitmoji-cli
-    prettier
+    opencode-ai
   )
   local INSTALLED_PNPM_LIST=()
   local PNPM_GLOBAL_PACKAGE_JSON="${HOME}/Library/pnpm/global/5/package.json"
