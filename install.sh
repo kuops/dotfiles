@@ -6,7 +6,6 @@ set +o posix
 
 # Homebrew 需要安装的 formulas 软件包列表
 HOMEBREW_FORMULAS_LIST=(
-  bat
   coreutils
   ctags
   diffutils
@@ -21,7 +20,6 @@ HOMEBREW_FORMULAS_LIST=(
   gnu-sed
   go
   grep
-  htop
   hugo
   iproute2mac
   jq
@@ -35,6 +33,7 @@ HOMEBREW_FORMULAS_LIST=(
   moreutils
   nmap
   oath-toolkit
+  opencode
   python
   pipx
   ripgrep
@@ -48,7 +47,6 @@ HOMEBREW_FORMULAS_LIST=(
   tree
   unzip
   watch
-  wtf
   kubernetes-cli
   kubebuilder
   kind
@@ -65,7 +63,6 @@ HOMEBREW_CASKS_LIST=(
   baidunetdisk
   citrix-workspace
   clash-verge-rev
-  claude-code
   docker
   font-cascadia-code-nf
   google-chrome
@@ -176,40 +173,32 @@ install_nvm_nodejs() {
     # shellcheck disable=SC1091
     source "$(brew --prefix nvm)/nvm.sh"
   fi
-  if ! nvm list lts/* &>/dev/null; then
+  if ! [ -f "${HOME}/.nvm/alias/default" ] &>/dev/null; then
     nvm install --lts
     nvm use --lts
   fi
 }
 
-# 安装 pnpm 和全局软件包
-install_pnpm_global_packages() {
-  if ! command -v pnpm &>/dev/null; then
-    npm install --global pnpm --registry
-    export PNPM_HOME="${HOME}/Library/pnpm"
-    export PATH="$PATH:$PNPM_HOME"
-  fi
-  local PNPM_LIST=(
-    @iflow-ai/iflow-cli
+# 安装 npm 全局软件包
+install_npm_global_packages() {
+  local NPM_LIST=(
+    bun
     gitmoji-cli
-    opencode-ai
   )
-  local INSTALLED_PNPM_LIST=()
-  local PNPM_GLOBAL_PACKAGE_JSON="${HOME}/Library/pnpm/global/5/package.json"
-  if [ -f "${PNPM_GLOBAL_PACKAGE_JSON}" ]; then
-    while IFS='' read -r line; do
-      INSTALLED_PNPM_LIST+=("$line")
-    done < <(jq -r '.dependencies|keys[]' <"${PNPM_GLOBAL_PACKAGE_JSON}")
-  fi
-  local NEED_INSTALL_PNPM_LIST=()
+  local INSTALLED_NPM_LIST=()
+  local NPM_GLOBAL_PACKAGE_JSON=$(npm list --depth=0 --json -g)
+  while IFS='' read -r line; do
+    INSTALLED_NPM_LIST+=("$line")
+  done < <(echo "${NPM_GLOBAL_PACKAGE_JSON}" | jq -r '.dependencies|keys[]')
+  local NEED_INSTALL_NPM_LIST=()
   local item
-  for item in "${PNPM_LIST[@]}"; do
-    if ! [[ ${INSTALLED_PNPM_LIST[*]} =~ ${item} ]]; then
-      NEED_INSTALL_PNPM_LIST+=("${item}")
+  for item in "${NPM_LIST[@]}"; do
+    if ! [[ ${INSTALLED_NPM_LIST[*]} =~ ${item} ]]; then
+      NEED_INSTALL_NPM_LIST+=("${item}")
     fi
   done
-  if [ "${#NEED_INSTALL_PNPM_LIST[@]}" -ne 0 ]; then
-    pnpm --global add "${NEED_INSTALL_PNPM_LIST[@]}" --registry "${NPM_MIRROR_REGISTRY}"
+  if [ "${#NEED_INSTALL_NPM_LIST[@]}" -ne 0 ]; then
+    npm install -g "${NEED_INSTALL_NPM_LIST[@]}" --registry "${NPM_MIRROR_REGISTRY}"
   fi
 }
 
@@ -327,7 +316,7 @@ main() {
   install_homebrew_formulas_packages
   install_homebrew_casks_packages
   install_nvm_nodejs
-  install_pnpm_global_packages
+  install_npm_global_packages
   install_pip_packages
   install_neovim
   set_kubectl

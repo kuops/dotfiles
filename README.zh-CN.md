@@ -27,27 +27,27 @@
 ### Homebrew 命令行工具
 - **版本控制**: git、git-extras、tig
 - **编辑器**: Neovim (LazyVim)
-- **终端工具**: tmux、htop、fzf、bat、ripgrep、tree、tokei、watch
+- **终端工具**: tmux、fzf、ripgrep、tree、tokei、watch
 - **系统工具**: coreutils、findutils、gnu-tar、gnu-sed、less、unzip
 - **开发工具**: make、maven、shellcheck、jq、ctags
 - **编程语言**: Go、Python、Rust、Lua、Java (GraalVM)、Node.js (通过 nvm)
 - **容器与编排**: Docker、Kubernetes (kubectl、helm、kustomize、kompose、istioctl、kind、kubebuilder)
-- **其他工具**: gawk、gibo、grep、iproute2mac、lrzsz、luarocks、mdbook、moreutils、nmap、oath-toolkit、pipx、sshpass、telnet、wtf
+- **其他工具**: gawk、gibo、grep、iproute2mac、lrzsz、luarocks、mdbook、moreutils、nmap、oath-toolkit、opencode、pipx、sshpass、telnet
 
 ### Python 工具 (通过 pipx)
 - **开发工具**: s3cmd、ansible、ansible-lint
 - **数据库**: mycli、pgcli
 - **网络工具**: mitmproxy
 
-### Node.js 工具 (通过 pnpm)
-- @iflow-ai/iflow-cli、gitmoji-cli、opencode-ai
+### Node.js 工具 (通过 npm)
+- bun、gitmoji-cli
 
 ### Oh My Zsh 插件
 - Powerlevel10k、zsh-autosuggestions、zsh-syntax-highlighting、zsh-completions、you-should-use
 
 ### Homebrew 应用程序
 - **浏览器**: Google Chrome
-- **开发工具**: Visual Studio Code、Claude Code、Docker、Android Platform Tools
+- **开发工具**: Visual Studio Code、Docker、Android Platform Tools
 - **通讯**: 微信、Telegram、QQ
 - **云存储**: 阿里云盘、百度网盘
 - **媒体**: IINA、QQ音乐
@@ -94,7 +94,7 @@ cd dotfiles && bash install.sh
 - ✅ 安装常用应用程序和命令行工具
 - ✅ 配置 Oh My Zsh 并切换默认 Shell 为 Zsh
 - ✅ 配置 Neovim 和 LazyVim
-- ✅ 配置 pip、npm、pnpm、git、SSH 等工具
+- ✅ 配置 pip、npm、git、SSH 等工具
 - ✅ 配置 iTerm2 偏好设置
 
 ## 📝 使用说明
@@ -169,6 +169,7 @@ chmod +x /usr/local/bin/iterm2-*.sh
 ```
 
 2. 完整配置需手动导入：在 iTerm2 中打开 `Preferences > General > Preferences`，导入 `iterm2/com.googlecode.iterm2.plist` 文件。
+
 
 ### Shell 未切换为 Zsh
 

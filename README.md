@@ -27,27 +27,27 @@ A fully automated macOS development environment setup with popular command-line 
 ### Homebrew Command-line Tools
 - **Version Control**: git, git-extras, tig
 - **Editor**: Neovim (LazyVim)
-- **Terminal Tools**: tmux, htop, fzf, bat, ripgrep, tree, tokei, watch
+- **Terminal Tools**: tmux, fzf, ripgrep, tree, tokei, watch
 - **System Tools**: coreutils, findutils, gnu-tar, gnu-sed, less, unzip
 - **Development Tools**: make, maven, shellcheck, jq, ctags
 - **Programming Languages**: Go, Python, Rust, Lua, Java (GraalVM), Node.js (via nvm)
 - **Containers & Orchestration**: Docker, Kubernetes (kubectl, helm, kustomize, kompose, istioctl, kind, kubebuilder)
-- **Other Tools**: gawk, gibo, grep, iproute2mac, lrzsz, luarocks, mdbook, moreutils, nmap, oath-toolkit, pipx, sshpass, telnet, wtf
+- **Other Tools**: gawk, gibo, grep, iproute2mac, lrzsz, luarocks, mdbook, moreutils, nmap, oath-toolkit, opencode, pipx, sshpass, telnet
 
 ### Python Tools (via pipx)
 - **Development Tools**: s3cmd, ansible, ansible-lint
 - **Databases**: mycli, pgcli
 - **Network Tools**: mitmproxy
 
-### Node.js Tools (via pnpm)
-- @iflow-ai/iflow-cli, gitmoji-cli, opencode-ai
+### Node.js Tools (via npm)
+- bun, gitmoji-cli
 
 ### Oh My Zsh Plugins
 - Powerlevel10k, zsh-autosuggestions, zsh-syntax-highlighting, zsh-completions, you-should-use
 
 ### Homebrew Applications
 - **Browser**: Google Chrome
-- **Development Tools**: Visual Studio Code, Claude Code, Docker, Android Platform Tools
+- **Development Tools**: Visual Studio Code, Docker, Android Platform Tools
 - **Communication**: WeChat, Telegram, QQ
 - **Cloud Storage**: Aliyun Drive, Baidu Netdisk
 - **Media Players**: IINA, QQ Music
@@ -94,7 +94,7 @@ cd dotfiles && bash install.sh
 - ✅ Install popular applications and command-line tools
 - ✅ Set up Oh My Zsh and switch default shell to Zsh
 - ✅ Configure Neovim and LazyVim
-- ✅ Configure pip, npm, pnpm, git, SSH, and other tools
+- ✅ Configure pip, npm, git, SSH, and other tools
 - ✅ Set up iTerm2 preferences
 
 ## 📝 Usage

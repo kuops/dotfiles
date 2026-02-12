@@ -134,11 +134,6 @@ source <(fzf --zsh)
 # Set vim to neovim
 [ -f /usr/local/bin/nvim ] && alias vim='/usr/local/bin/nvim'
 
-# Set pnpm
-export PNPM_HOME="${HOME}/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-source <(pnpm completion zsh)
-
 # Set golang
 export GOPROXY="https://goproxy.io,https://goproxy.cn,direct"
 export PATH="$HOME/go/bin:$PATH"
