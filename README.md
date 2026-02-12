@@ -40,7 +40,7 @@ A fully automated macOS development environment setup with popular command-line 
 - **Network Tools**: mitmproxy
 
 ### Node.js Tools (via npm)
-- bun, gitmoji-cli
+- bun, gitmoji-cli, @z_ai/coding-helper
 
 ### Oh My Zsh Plugins
 - Powerlevel10k, zsh-autosuggestions, zsh-syntax-highlighting, zsh-completions, you-should-use

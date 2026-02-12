@@ -40,7 +40,7 @@
 - **网络工具**: mitmproxy
 
 ### Node.js 工具 (通过 npm)
-- bun、gitmoji-cli
+- bun、gitmoji-cli、@z_ai/coding-helper
 
 ### Oh My Zsh 插件
 - Powerlevel10k、zsh-autosuggestions、zsh-syntax-highlighting、zsh-completions、you-should-use

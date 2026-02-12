@@ -184,6 +184,7 @@ install_npm_global_packages() {
   local NPM_LIST=(
     bun
     gitmoji-cli
+    @z_ai/coding-helper
   )
   local INSTALLED_NPM_LIST=()
   local NPM_GLOBAL_PACKAGE_JSON=$(npm list --depth=0 --json -g)
