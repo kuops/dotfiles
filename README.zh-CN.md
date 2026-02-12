@@ -14,13 +14,13 @@
 
 这是一套精心配置的 macOS 开发环境，包含常用的命令行工具、开发工具和应用程序的自动化安装配置。所有包管理器均已配置国内镜像源，确保安装速度。
 
-## ✨ 特性
+## ✨ 主要特性
 
-- 🚀 **一键安装** - 自动化脚本快速配置完整的开发环境
-- 🇨🇳 **国内镜像** - Homebrew、npm、pip 等已配置国内镜像加速
-- 🛠️ **开发工具** - 集成 Neovim (LazyVim)、Git、Docker、Kubernetes 等开发工具
-- 🎨 **终端美化** - Oh My Zsh + Powerlevel10k + iTerm2 配置
-- 📦 **常用应用** - Chrome、VS Code、微信、Telegram 等日常应用
+- 🚀 **一键配置** - 自动化脚本快速完成完整的开发环境配置
+- 🇨🇳 **国内优化** - 所有包管理器（Homebrew、npm、pip 等）均已配置国内镜像加速
+- 🛠️ **丰富工具集** - 预配置 Neovim (LazyVim)、Git、Docker、Kubernetes 等开发工具
+- 🎨 **美化终端** - Oh My Zsh + Powerlevel10k + iTerm2 自定义配置
+- 📦 **精选应用** - 精心挑选的常用应用，包括 Chrome、VS Code、微信、Telegram 等
 
 ## 📦 安装清单
 
@@ -28,9 +28,10 @@
 - **版本控制**: git、git-extras、tig
 - **编辑器**: Neovim (LazyVim)
 - **终端工具**: tmux、fzf、ripgrep、tree、tokei、watch
-- **系统工具**: coreutils、findutils、gnu-tar、gnu-sed、less、unzip
-- **开发工具**: make、maven、shellcheck、jq、ctags
-- **编程语言**: Go、Python、Rust、Lua、Java (GraalVM)、Node.js (通过 nvm)
+- **系统工具**: coreutils、diffutils、findutils、gnu-getopt、gnu-tar、gnu-sed、less、unzip
+- **开发工具**: make、maven、shellcheck、jq、ctags、hugo
+- **编程语言**: Go、Python、Rust、Lua、Node.js (通过 nvm)
+- **Java 运行时**: GraalVM JDK
 - **容器与编排**: Docker、Kubernetes (kubectl、helm、kustomize、kompose、istioctl、kind、kubebuilder)
 - **其他工具**: gawk、gibo、grep、iproute2mac、lrzsz、luarocks、mdbook、moreutils、nmap、oath-toolkit、opencode、pipx、sshpass、telnet
 
@@ -47,11 +48,13 @@
 
 ### Homebrew 应用程序
 - **浏览器**: Google Chrome
-- **开发工具**: Visual Studio Code、Docker、Android Platform Tools
+- **开发工具**: Visual Studio Code、Docker、Android Platform Tools、GraalVM JDK
 - **通讯**: 微信、Telegram、QQ
 - **云存储**: 阿里云盘、百度网盘
 - **媒体**: IINA、QQ音乐
-- **其他**: Clash Verge、iTerm2、VirtualBox、Vagrant、Wireshark
+- **网络工具**: Clash Verge Rev、Wireshark
+- **虚拟化**: VirtualBox、Vagrant
+- **终端**: iTerm2
 - **字体**: Cascadia Code NF
 - **生产力**: Citrix Workspace、腾讯会议、柠檬清理
 
@@ -71,9 +74,11 @@ xcode-select --install
 git clone git@github.com:kuops/dotfiles.git
 ```
 
-### 代理配置（必须）
+### 代理配置（国内必须）
 
-在运行安装脚本前必须配置代理，因为某些软件在中国无法直接下载：
+**重要提示**：在国内环境下，运行安装脚本前必须配置代理，因为某些软件无法直接下载。
+
+请设置以下环境变量：
 
 ```bash
 export ALL_PROXY="代理地址:端口"
@@ -90,31 +95,27 @@ cd dotfiles && bash install.sh
 
 ### 安装脚本功能
 
-- ✅ 安装 Homebrew 并配置国内镜像
-- ✅ 安装常用应用程序和命令行工具
-- ✅ 配置 Oh My Zsh 并切换默认 Shell 为 Zsh
-- ✅ 配置 Neovim 和 LazyVim
-- ✅ 配置 pip、npm、git、SSH 等工具
-- ✅ 配置 iTerm2 偏好设置
+安装脚本会自动完成以下任务：
 
-## 📝 使用说明
+- ✅ 安装 Homebrew 并配置国内镜像以加速下载
+- ✅ 安装常用命令行工具和应用程序
+- ✅ 安装 Oh My Zsh 和 Powerlevel10k 主题，并切换默认 Shell 为 Zsh
+- ✅ 安装并配置 Neovim 和 LazyVim
+- ✅ 配置 pip、npm、git、SSH 等开发工具
+- ✅ 配置 iTerm2 偏好设置和脚本
 
-### Gas Mask 使用
-
-在打开 Gas Mask 前先执行：
-
-```bash
-sudo spctl --master-disable
-```
+## 📝 安装后使用说明
 
 ### tmux 插件安装
 
 使用 tpm 安装 tmux 插件：
 
 ```bash
-# 按 Ctrl + a，然后按大写 I
-Ctrl + a, I
+# 启动一个新的 tmux 会话
+tmux
 ```
+
+然后按 `Ctrl + a`，再按 `Shift + I`（大写 I）来安装插件。
 
 ### Microsoft Office 安装
 
@@ -122,7 +123,7 @@ Ctrl + a, I
 
 ### JetBrains IDE 安装（可选）
 
-通过 Homebrew Cask 安装（不在自动安装脚本中）：
+安装脚本不包含 JetBrains IDE，如需安装可通过 Homebrew Cask 安装：
 
 ```bash
 brew install --cask intellij-idea  # IntelliJ IDEA
@@ -134,7 +135,7 @@ brew install --cask webstorm       # WebStorm
 
 ### Homebrew 安装失败
 
-尝试手动安装：
+如果自动安装失败，请尝试手动安装 Homebrew：
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -142,7 +143,7 @@ brew install --cask webstorm       # WebStorm
 
 ### tmux 插件未加载
 
-手动安装插件：
+如果 tmux 插件未正常工作，请手动安装：
 
 ```bash
 # 如果 tmux 插件管理器不存在，先安装
@@ -153,7 +154,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 ### Powerlevel10k 提示符不显示
 
-手动配置：
+如果 Powerlevel10k 主题未正确显示，请运行配置向导：
 
 ```bash
 p10k configure
@@ -161,7 +162,9 @@ p10k configure
 
 ### iTerm2 配置未生效
 
-1. 复制 iTerm2 脚本：
+要应用 iTerm2 配置：
+
+1. 首先，复制 iTerm2 脚本：
 
 ```bash
 cp iterm2/iterm2-*.sh /usr/local/bin
@@ -171,15 +174,15 @@ chmod +x /usr/local/bin/iterm2-*.sh
 2. 完整配置需手动导入：在 iTerm2 中打开 `Preferences > General > Preferences`，导入 `iterm2/com.googlecode.iterm2.plist` 文件。
 
 
-### Shell 未切换为 Zsh
+### 默认 Shell 未切换为 Zsh
 
-手动切换 Shell：
+如果 Shell 未自动切换为 Zsh，请手动执行：
 
 ```bash
 chsh -s /bin/zsh
 ```
 
-退出并重新登录后生效。
+需要退出并重新登录后才能生效。
 
 ## 🤝 贡献
 

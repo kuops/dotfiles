@@ -68,5 +68,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+*.zwc
 .zshrc_work
 iterm2/com.googlecode.iterm2.plist

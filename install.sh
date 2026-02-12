@@ -187,7 +187,8 @@ install_npm_global_packages() {
     @z_ai/coding-helper
   )
   local INSTALLED_NPM_LIST=()
-  local NPM_GLOBAL_PACKAGE_JSON=$(npm list --depth=0 --json -g)
+  local NPM_GLOBAL_PACKAGE_JSON
+  NPM_GLOBAL_PACKAGE_JSON=$(npm list --depth=0 --json -g)
   while IFS='' read -r line; do
     INSTALLED_NPM_LIST+=("$line")
   done < <(echo "${NPM_GLOBAL_PACKAGE_JSON}" | jq -r '.dependencies|keys[]')
@@ -295,11 +296,13 @@ set_kubectl() {
 }
 
 update_gitconfig() {
-  if ! [ -f "${HOME}/.gitconfig" ]; then
+  if [ -f "${HOME}/.gitconfig" ]; then
     if ! diff -q .gitconfig "${HOME}/.gitconfig" &>/dev/null; then
-      [ -f "${HOME}/.gitconfig" ] && mv "${HOME}/.gitconfig" "${BACKUP_DIR}/.gitconfig.$(date +%F-%H%M%S)"
+      mv "${HOME}/.gitconfig" "${BACKUP_DIR}/.gitconfig.$(date +%F-%H%M%S)"
       cp .gitconfig "${HOME}/.gitconfig"
     fi
+  else
+    cp .gitconfig "${HOME}/.gitconfig"
   fi
 }
 
