@@ -43,6 +43,15 @@
 ### Node.js 工具 (通过 npm)
 - bun、gitmoji-cli、@z_ai/coding-helper、agent-browser
 
+### OpenCode Skills
+自动安装 20 个常用的 OpenCode Skills，包括：
+- **前端开发**: frontend-design、vercel-react-best-practices、tailwind-design-system、vitest、web-design-guidelines
+- **测试**: test-driven-development、webapp-testing
+- **Golang**: golang-pro、golang-patterns、golang-testing
+- **UI/UX**: ui-ux-pro-max
+- **文档处理**: pptx、docx、xlsx（PowerPoint、Word、Excel）
+- **开发工具**: agent-browser、api-design-principles、brainstorming、find-skills、skill-creator、planning-with-files
+
 ### Oh My Zsh 插件
 - Powerlevel10k、zsh-autosuggestions、zsh-syntax-highlighting、zsh-completions、you-should-use
 
@@ -101,6 +110,7 @@ cd dotfiles && bash install.sh
 - ✅ 安装常用命令行工具和应用程序
 - ✅ 安装 Oh My Zsh 和 Powerlevel10k 主题，并切换默认 Shell 为 Zsh
 - ✅ 安装并配置 Neovim 和 LazyVim
+- ✅ 自动安装 20 个常用的 OpenCode Skills
 - ✅ 配置 pip、npm、git、SSH 等开发工具
 - ✅ 配置 iTerm2 偏好设置和脚本
 

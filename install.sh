@@ -241,6 +241,44 @@ install_neovim() {
   fi
 }
 
+# 安装 opencode skills
+install_opencode_skills() {
+  local SKILLS_LIST=(
+    "vercel-labs/agent-browser@agent-browser"
+    "wshobson/agents@api-design-principles"
+    "obra/superpowers@brainstorming"
+    "anthropics/skills@skill-creator"
+    "anthropics/skills@find-skills"
+    "anthropics/skills@frontend-design"
+    "jeffallan/claude-skills@golang-pro"
+    "affaan-m/everything-claude-code@golang-patterns"
+    "affaan-m/everything-claude-code@golang-testing"
+    "othmanadi/planning-with-files@planning-with-files"
+    "wshobson/agents@tailwind-design-system"
+    "mattpocock/skills@tdd"
+    "nextlevelbuilder/ui-ux-pro-max-skill@ui-ux-pro-max"
+    "vercel-labs/agent-skills@vercel-react-best-practices"
+    "antfu/skills@vitest"
+    "vercel-labs/agent-skills@web-design-guidelines"
+    "anthropics/skills@webapp-testing"
+    "anthropics/skills@pptx"
+    "anthropics/skills@docx"
+    "anthropics/skills@xlsx"
+  )
+
+  local INSTALLED_SKILLS
+  INSTALLED_SKILLS=$(npx skills list -g 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -E "^\s+[a-z]" | awk '{print $1}')
+
+  for skill in "${SKILLS_LIST[@]}"; do
+    local skill_name
+    skill_name=$(echo "$skill" | cut -d'@' -f2)
+    if ! echo "$INSTALLED_SKILLS" | grep -q "^${skill_name}$"; then
+      echo "正在安装 skill: ${skill}"
+      npx skills add -g "$skill" -y
+    fi
+  done
+}
+
 # 设置 tmux
 set_tmux() {
   if ! [ -d "${HOME}/.tmux" ]; then
@@ -326,6 +364,7 @@ main() {
   install_npm_global_packages
   install_pip_packages
   install_neovim
+  install_opencode_skills
   set_kubectl
   update_dotfiles
   set_tmux

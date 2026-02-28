@@ -43,6 +43,15 @@ A fully automated macOS development environment setup with popular command-line 
 ### Node.js Tools (via npm)
 - bun, gitmoji-cli, @z_ai/coding-helper, agent-browser
 
+### OpenCode Skills
+Automatically installs 20 popular OpenCode Skills, including:
+- **Frontend Development**: frontend-design, vercel-react-best-practices, tailwind-design-system, vitest, web-design-guidelines
+- **Testing**: test-driven-development, webapp-testing
+- **Golang**: golang-pro, golang-patterns, golang-testing
+- **UI/UX**: ui-ux-pro-max
+- **Document Processing**: pptx, docx, xlsx (PowerPoint, Word, Excel)
+- **Development Tools**: agent-browser, api-design-principles, brainstorming, find-skills, skill-creator, planning-with-files
+
 ### Oh My Zsh Plugins
 - Powerlevel10k, zsh-autosuggestions, zsh-syntax-highlighting, zsh-completions, you-should-use
 
@@ -101,6 +110,7 @@ The installation script automates the following tasks:
 - ✅ Installs popular command-line tools and applications
 - ✅ Sets up Oh My Zsh with Powerlevel10k theme and switches default shell to Zsh
 - ✅ Installs and configures Neovim with LazyVim configuration
+- ✅ Automatically installs 20 popular OpenCode Skills
 - ✅ Configures pip, npm, git, SSH, and other development tools
 - ✅ Sets up iTerm2 preferences and scripts
 
