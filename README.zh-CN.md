@@ -129,7 +129,13 @@ tmux
 
 ### Microsoft Office 安装
 
-前往 [Microsoft Office](https://www.microsoft.com/microsoft-365/microsoft-office) 官网下载安装。
+通过 Homebrew Cask 安装 Microsoft Office：
+
+```bash
+brew install --cask microsoft-word microsoft-excel microsoft-powerpoint
+```
+
+> 💡 **提示**：如果 Homebrew 安装失败，可以参考 [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS) 获取其他安装方式。
 
 ### JetBrains IDE 安装（可选）
 

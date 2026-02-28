@@ -70,6 +70,9 @@ HOMEBREW_CASKS_LIST=(
   graalvm-jdk
   iterm2
   iina
+  microsoft-excel
+  microsoft-powerpoint
+  microsoft-word
   obsidian
   qq
   qqmusic
