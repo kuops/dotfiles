@@ -1,0 +1,91 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "theme": "one-dark",
+    "autoupdate": false,
+    "default_agent": "build",
+    "watcher": {
+        "ignore": [
+            "node_modules/**",
+            "dist/**",
+            ".git/**"
+        ]
+    },
+    "mcp": {
+        "zai-mcp-server": {
+            "type": "local",
+            "command": [
+                "npx",
+                "-y",
+                "@z_ai/mcp-server"
+            ],
+            "environment": {
+                "Z_AI_MODE": "ZHIPU",
+                "Z_AI_API_KEY": "{env:Z_AI_APIKEY}"
+            }
+        },
+        "web-search-prime": {
+            "type": "remote",
+            "url": "https://open.bigmodel.cn/api/mcp/web_search_prime/mcp",
+            "headers": {
+                "Authorization": "Bearer {env:Z_AI_APIKEY}"
+            }
+        },
+        "web-reader": {
+            "type": "remote",
+            "url": "https://open.bigmodel.cn/api/mcp/web_reader/mcp",
+            "headers": {
+                "Authorization": "Bearer {env:Z_AI_APIKEY}"
+            }
+        },
+        "zread": {
+            "type": "remote",
+            "url": "https://open.bigmodel.cn/api/mcp/zread/mcp",
+            "headers": {
+                "Authorization": "Bearer {env:Z_AI_APIKEY}"
+            }
+        },
+        "chrome-devtools": {
+          "type": "local",
+          "command": [
+            "npx",
+            "-y",
+            "chrome-devtools-mcp@latest",
+            "--no-usage-statistics"
+          ]
+        }
+    },
+    "provider": {
+        "zhipu-anthropic": {
+            "npm": "@ai-sdk/anthropic",
+            "options": {
+                "baseURL": "https://open.bigmodel.cn/api/anthropic/v1",
+                "apiKey": "{env:Z_AI_APIKEY}"
+            },
+            "models": {
+              "glm-4.5-air": {},
+              "glm-4.7": {
+                "thinking": {
+                  "type": "enabled",
+                  "budgetTokens": 1024
+                },
+                "modalities": {
+                  "input": ["text","image"],
+                  "output": ["text"]
+                }
+              },
+              "glm-5": {
+                "thinking": {
+                  "type": "enabled",
+                  "budgetTokens": 1024
+                },
+                "modalities": {
+                  "input": ["text","image"],
+                  "output": ["text"]
+                }
+              }
+            }
+        }
+    },
+    "model": "zhipu-anthropic/glm-4.7",
+    "small_model": "zhipu-anthropic/glm-4.5-air"
+}

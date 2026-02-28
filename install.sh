@@ -64,11 +64,13 @@ HOMEBREW_CASKS_LIST=(
   citrix-workspace
   clash-verge-rev
   docker
+  feishu
   font-cascadia-code-nf
   google-chrome
   graalvm-jdk
   iterm2
   iina
+  obsidian
   qq
   qqmusic
   telegram
@@ -185,6 +187,7 @@ install_npm_global_packages() {
     bun
     gitmoji-cli
     @z_ai/coding-helper
+    agent-browser
   )
   local INSTALLED_NPM_LIST=()
   local NPM_GLOBAL_PACKAGE_JSON

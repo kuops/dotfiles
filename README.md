@@ -41,7 +41,7 @@ A fully automated macOS development environment setup with popular command-line 
 - **Network Tools**: mitmproxy
 
 ### Node.js Tools (via npm)
-- bun, gitmoji-cli, @z_ai/coding-helper
+- bun, gitmoji-cli, @z_ai/coding-helper, agent-browser
 
 ### Oh My Zsh Plugins
 - Powerlevel10k, zsh-autosuggestions, zsh-syntax-highlighting, zsh-completions, you-should-use
@@ -49,14 +49,14 @@ A fully automated macOS development environment setup with popular command-line 
 ### Homebrew Applications
 - **Browser**: Google Chrome
 - **Development Tools**: Visual Studio Code, Docker, Android Platform Tools, GraalVM JDK
-- **Communication**: WeChat, Telegram, QQ
+- **Communication**: WeChat, Telegram, QQ, Feishu
 - **Cloud Storage**: Aliyun Drive, Baidu Netdisk
 - **Media Players**: IINA, QQ Music
 - **Network Tools**: Clash Verge Rev, Wireshark
 - **Virtualization**: VirtualBox, Vagrant
 - **Terminal**: iTerm2
 - **Fonts**: Cascadia Code NF
-- **Productivity**: Citrix Workspace, Tencent Meeting, Tencent Lemon
+- **Productivity**: Citrix Workspace, Tencent Meeting, Tencent Lemon, Obsidian
 
 ## 🚀 Quick Start
 

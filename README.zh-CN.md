@@ -41,7 +41,7 @@
 - **网络工具**: mitmproxy
 
 ### Node.js 工具 (通过 npm)
-- bun、gitmoji-cli、@z_ai/coding-helper
+- bun、gitmoji-cli、@z_ai/coding-helper、agent-browser
 
 ### Oh My Zsh 插件
 - Powerlevel10k、zsh-autosuggestions、zsh-syntax-highlighting、zsh-completions、you-should-use
@@ -49,14 +49,14 @@
 ### Homebrew 应用程序
 - **浏览器**: Google Chrome
 - **开发工具**: Visual Studio Code、Docker、Android Platform Tools、GraalVM JDK
-- **通讯**: 微信、Telegram、QQ
+- **通讯**: 微信、Telegram、QQ、飞书
 - **云存储**: 阿里云盘、百度网盘
 - **媒体**: IINA、QQ音乐
 - **网络工具**: Clash Verge Rev、Wireshark
 - **虚拟化**: VirtualBox、Vagrant
 - **终端**: iTerm2
 - **字体**: Cascadia Code NF
-- **生产力**: Citrix Workspace、腾讯会议、柠檬清理
+- **生产力**: Citrix Workspace、腾讯会议、柠檬清理、Obsidian
 
 ## 🚀 快速开始
 
