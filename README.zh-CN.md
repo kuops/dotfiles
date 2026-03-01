@@ -127,25 +127,9 @@ tmux
 
 然后按 `Ctrl + a`，再按 `Shift + I`（大写 I）来安装插件。
 
-### Microsoft Office 安装
+### Microsoft Office
 
-通过 Homebrew Cask 安装 Microsoft Office：
-
-```bash
-brew install --cask microsoft-word microsoft-excel microsoft-powerpoint
-```
-
-> 💡 **提示**：如果 Homebrew 安装失败，可以参考 [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS) 获取其他安装方式。
-
-### JetBrains IDE 安装（可选）
-
-安装脚本不包含 JetBrains IDE，如需安装可通过 Homebrew Cask 安装：
-
-```bash
-brew install --cask intellij-idea  # IntelliJ IDEA
-brew install --cask pycharm        # PyCharm
-brew install --cask webstorm       # WebStorm
-```
+参考 [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS)
 
 ## ❓ 常见问题
 

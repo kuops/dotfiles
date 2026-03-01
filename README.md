@@ -127,25 +127,9 @@ tmux
 
 Then press `Ctrl + a` followed by `Shift + I` (capital I) to install plugins.
 
-### Microsoft Office Installation
+### Microsoft Office
 
-Install Microsoft Office via Homebrew Cask:
-
-```bash
-brew install --cask microsoft-word microsoft-excel microsoft-powerpoint
-```
-
-> 💡 **Tip**: If Homebrew installation fails, you can refer to [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS) for alternative installation methods.
-
-### JetBrains IDE Installation (Optional)
-
-The installation script does not include JetBrains IDEs. You can install them via Homebrew Cask if needed:
-
-```bash
-brew install --cask intellij-idea  # IntelliJ IDEA
-brew install --cask pycharm        # PyCharm
-brew install --cask webstorm       # WebStorm
-```
+Refer to [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS)
 
 ## ❓ Troubleshooting
 
