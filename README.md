@@ -179,6 +179,19 @@ plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o iterm2
 plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o ~/Library/Preferences/com.googlecode.iterm2.plist
 ```
 
+For creating a portable iTerm2 configuration template:
+
+```bash
+# Export current configuration to XML format
+plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o iterm2/com.googlecode.iterm2.plist
+
+# Replace actual home directory with $HOME variable to create template
+sed "s|${HOME}|\\\$HOME|g" iterm2/com.googlecode.iterm2.plist > iterm2/com.googlecode.iterm2.plist.tpl
+
+# Restore configuration from template (replace $HOME with actual path and convert to binary)
+envsubst < iterm2/com.googlecode.iterm2.plist.tpl | plutil -convert binary1 -o ~/Library/Preferences/com.googlecode.iterm2.plist
+```
+
 ### Default Shell Not Changed to Zsh
 
 If the shell was not automatically changed to Zsh, do it manually:
