@@ -169,7 +169,15 @@ cp iterm2/iterm2-*.sh /usr/local/bin
 chmod +x /usr/local/bin/iterm2-*.sh
 ```
 
-For backing up and restoring iTerm2 preferences, refer to the comments in the `set_iterm2` function in `install.sh`.
+For backing up and restoring iTerm2 preferences:
+
+```bash
+# Backup existing iTerm2 configuration
+plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o iterm2/com.googlecode.iterm2.plist
+
+# Restore iTerm2 configuration
+plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o ~/Library/Preferences/com.googlecode.iterm2.plist
+```
 
 ### Default Shell Not Changed to Zsh
 

@@ -169,7 +169,15 @@ cp iterm2/iterm2-*.sh /usr/local/bin
 chmod +x /usr/local/bin/iterm2-*.sh
 ```
 
-如需备份和还原 iTerm2 偏好设置，可以参考 `install.sh` 中 `set_iterm2` 函数的注释说明。
+如需备份和还原 iTerm2 偏好设置：
+
+```bash
+# 备份现有 iTerm2 配置
+plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o iterm2/com.googlecode.iterm2.plist
+
+# 还原 iTerm2 配置
+plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o ~/Library/Preferences/com.googlecode.iterm2.plist
+```
 
 ### 默认 Shell 未切换为 Zsh
 
