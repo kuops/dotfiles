@@ -186,7 +186,7 @@ plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o ~/Library/Preferen
 plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o iterm2/com.googlecode.iterm2.plist
 
 # 将真实 home 目录替换为 $HOME 变量，生成模板文件
-sed "s|${HOME}|\\\$HOME|g" iterm2/com.googlecode.iterm2.plist > iterm2/com.googlecode.iterm2.plist.tpl
+sed "s|${HOME}|\\\${HOME}|g" iterm2/com.googlecode.iterm2.plist > iterm2/com.googlecode.iterm2.plist.tpl
 
 # 从模板还原配置（将 $HOME 替换为实际路径并转换为二进制格式）
 envsubst < iterm2/com.googlecode.iterm2.plist.tpl | plutil -convert binary1 -o ~/Library/Preferences/com.googlecode.iterm2.plist

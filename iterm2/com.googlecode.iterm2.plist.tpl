@@ -24,6 +24,8 @@
 	<integer>128000</integer>
 	<key>AitermURL</key>
 	<string>https://api.openai.com/v1/responses</string>
+	<key>AllowClipboardAccess</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>ApplePressAndHoldEnabled</key>
@@ -43,6 +45,8 @@
 	</array>
 	<key>CopyLastNewline</key>
 	<false/>
+	<key>CopySelection</key>
+	<true/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>Atom One Dark</key>
@@ -405,21 +409,20 @@
 	<string>{880, 448}</string>
 	<key>NSOSPLastRootDirectory</key>
 	<data>
-	Ym9va+wCAAAAAAUQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	AAAAAAAAAAAAAAAAALQBAAAEAAAAAwMAAAAEAAAFAAAAAQEAAFVzZXJzAAAABQAAAAEB
+	Ym9va6wCAAAAAAUQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	AAAAAAAAAAAAAAAAAIwBAAAEAAAAAwMAAAAAACAFAAAAAQEAAFVzZXJzAAAABQAAAAEB
 	AABzaGlueQAAAAkAAAABAQAARG93bmxvYWRzAAAADAAAAAEGAAAQAAAAIAAAADAAAAAI
 	AAAABAMAAKNHAAAAAAAACAAAAAQDAABGmwAAAAAAAAgAAAAEAwAAeZsAAAAAAAAMAAAA
-	AQYAAFgAAABoAAAAeAAAAAgAAAAABAAAQcdo+3QAAAAYAAAAAQIAAAIAAAAAAAAAHwIA
-	AAAAAAAfAgAAAAAAAAAAAAABBQAACAAAAAQDAAABAAAAAAAAAAQAAAADAwAA9QEAAAgA
-	AAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2ludG9zaCBIRAgAAAAEAwAAAKAgaHQAAAAk
-	AAAAAQEAAEYxNDNEMTdDLUEwQ0EtNEQwQS1CRTVFLTM3MUJDOEY0NDhGNRgAAAABAgAA
-	gQAAAAEAAADvEwAAAQAAAO8TAAABAAAAAQAAAAEBAAAvAAAAMAAAAAECAABkbmliAAAA
-	AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmbndkAgAAAAAAAADwAAAA/v///wEA
-	AAAAAAAAEwAAAAQQAABEAAAAAAAAAAUQAACIAAAAAAAAABAQAACsAAAAAAAAAEAQAACc
-	AAAAAAAAAAIgAABwAQAAAAAAAAUgAADwAAAAAAAAABAgAAAAAQAAAAAAABEgAAAkAQAA
-	AAAAABIgAAAUAQAAAAAAABMgAACcAAAAAAAAACAgAABQAQAAAAAAADAgAADMAAAAAAAA
-	AAHAAADUAAAAAAAAABHAAAAgAAAAAAAAABLAAADkAAAAAAAAAAHQAADMAAAAAAAAABDQ
-	AAAEAAAAAAAAABfwAAAwAAAAAAAAACLwAAB8AQAAAAAAAA==
+	AQYAAFgAAABoAAAAeAAAAAgAAAAABAAAQcdo+3QAAAAYAAAAAQIAAAIAAAAAAAAADwAA
+	AAAAAAAAAAAAAAAAAAAAAAABBQAACAAAAAQDAAABAAAAAAAAAAQAAAADAwAA9QEAAAgA
+	AAABCQAAZmlsZTovLy8MAAAAAQEAAE1hY2ludG9zaCBIRAgAAAAEAwAAAKAgaHQAAAAI
+	AAAAAAQAAEHHmi85gAAAJAAAAAEBAABGMTQzRDE3Qy1BMENBLTREMEEtQkU1RS0zNzFC
+	QzhGNDQ4RjUYAAAAAQIAAIEAAAABAAAA7xMAAAEAAAAAAAAAAAAAAAEAAAABAQAALwAA
+	ANgAAAD+////AQAAAAAAAAARAAAABBAAAEQAAAAAAAAABRAAAIgAAAAAAAAAEBAAAKwA
+	AAAAAAAAQBAAAJwAAAAAAAAAAiAAAIABAAAAAAAABSAAAPAAAAAAAAAAECAAAAABAAAA
+	AAAAESAAADQBAAAAAAAAEiAAABQBAAAAAAAAEyAAACQBAAAAAAAAICAAAGABAAAAAAAA
+	MCAAAMwAAAAAAAAAAcAAANQAAAAAAAAAEcAAACAAAAAAAAAAEsAAAOQAAAAAAAAAAdAA
+	AMwAAAAAAAAAENAAAAQAAAAAAAAA
 	</data>
 	<key>NSOverlayScrollersFallBackForAccessoryViews</key>
 	<false/>
@@ -443,10 +446,14 @@
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>0 162 250 297 0 0 1440 870 </string>
+	<key>NSWindow Frame iTerm Window 0</key>
+	<string>0 217 1438 653 0 0 1440 870 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>Allow Alternate Mouse Scroll</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
 			<false/>
@@ -1074,6 +1081,8 @@
 				<key>Red Component</key>
 				<real>0.87843137979507446</real>
 			</dict>
+			<key>Automatically Enable Alternate Mouse Scroll</key>
+			<false/>
 			<key>BM Growl</key>
 			<true/>
 			<key>Background Color</key>
@@ -1459,6 +1468,10 @@
 			</dict>
 			<key>Mouse Reporting</key>
 			<true/>
+			<key>Mouse Reporting allow clicks and drags</key>
+			<true/>
+			<key>Mouse Reporting allow mouse wheel</key>
+			<true/>
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
@@ -1470,6 +1483,8 @@
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
+			<false/>
+			<key>Reduce Flicker</key>
 			<false/>
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
@@ -1559,6 +1574,8 @@
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
+			<key>Set Local Environment Vars</key>
+			<integer>1</integer>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Mark Indicators</key>
@@ -1657,22 +1674,26 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{138, 739}</string>
+		<string>{135, 741}</string>
 	</dict>
 	<key>NoSyncIgnoreSystemWindowRestoration</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>7745A474-AD57-4D46-ADD5-FCC0F2EBD17E</string>
 	<key>NoSyncLastOSVersion</key>
-	<string>Version 26.2 (Build 25C56)</string>
+	<string>Version 26.3 (Build 25D125)</string>
 	<key>NoSyncLastSystemPythonVersionRequirement</key>
 	<string>1.17</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>1</integer>
+	<integer>3</integer>
+	<key>NoSyncNeverAllowPaste</key>
+	<false/>
 	<key>NoSyncNeverAskAboutMouseReportingFrustration</key>
 	<true/>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>791556568.94910705</real>
+	<real>792735083.77365899</real>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
 		<key>0</key>
@@ -2103,6 +2124,14 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
+				<string>currentTab.currentSession.jobPid</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
 				<string>frame</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -2298,7 +2327,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.bellCount</string>
+				<string>currentSession</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -2306,7 +2335,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession</string>
+				<string>tmuxWindow</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -2347,6 +2376,14 @@
 				<true/>
 				<key>name</key>
 				<string>currentSession.terminalIconName</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>currentSession.jobPid</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -2442,6 +2479,22 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
+				<string>currentSession.path</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>currentSession.bellCount</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
 				<string>currentSession.termid</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -2480,22 +2533,6 @@
 			</dict>
 			<dict>
 				<key>isTerminal</key>
-				<true/>
-				<key>name</key>
-				<string>currentSession.terminalWindowName</string>
-				<key>nonterminalContext</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>isTerminal</key>
-				<true/>
-				<key>name</key>
-				<string>tmuxWindow</string>
-				<key>nonterminalContext</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>isTerminal</key>
 				<false/>
 				<key>name</key>
 				<string>currentSession</string>
@@ -2506,7 +2543,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.path</string>
+				<string>currentSession.terminalWindowName</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -2543,6 +2580,13 @@
 	<integer>1</integer>
 	<key>NoSyncRestoreWindowsCount</key>
 	<integer>0</integer>
+	<key>NoSyncSavedWindowPositions</key>
+	<dict>
+		<key>0</key>
+		<string>{0, 900}</string>
+	</dict>
+	<key>NoSyncScrollingHorizontally</key>
+	<true/>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>791383768.94839096</real>
 	<key>NoSyncUserHasSelectedCommand</key>
@@ -2587,6 +2631,10 @@
 	<key>PrefsCustomFolder</key>
 	<string>${HOME}/dotfiles</string>
 	<key>PreventEscapeSequenceFromClearingHistory</key>
+	<false/>
+	<key>Print In Black And White</key>
+	<true/>
+	<key>ReportHorizontalScrollEvents</key>
 	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<false/>
