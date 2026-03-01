@@ -317,6 +317,16 @@ update_dotfiles() {
     [ -f "${HOME}/.tmux.conf" ] && mv "${HOME}/.tmux.conf" "${BACKUP_DIR}/.tmux.conf.$(date +%F-%H%M%S)"
     cp .tmux.conf "${HOME}/.tmux.conf"
   fi
+  if ! diff -q .config/opencode/opencode.json "${HOME}/.config/opencode/opencode.json" &>/dev/null; then
+    mkdir -p "${HOME}/.config/opencode"
+    [ -f "${HOME}/.config/opencode/opencode.json" ] && mv "${HOME}/.config/opencode/opencode.json" "${BACKUP_DIR}/opencode.json.$(date +%F-%H%M%S)"
+    cp .config/opencode/opencode.json "${HOME}/.config/opencode/opencode.json"
+  fi
+  if ! diff -q .config/opencode/AGENTS.md "${HOME}/.config/opencode/AGENTS.md" &>/dev/null; then
+    mkdir -p "${HOME}/.config/opencode"
+    [ -f "${HOME}/.config/opencode/AGENTS.md" ] && mv "${HOME}/.config/opencode/AGENTS.md" "${BACKUP_DIR}/opencode_AGENTS.md.$(date +%F-%H%M%S)"
+    cp .config/opencode/AGENTS.md "${HOME}/.config/opencode/AGENTS.md"
+  fi
 }
 
 # 设置 iterm2
