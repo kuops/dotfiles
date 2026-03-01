@@ -162,16 +162,12 @@ p10k configure
 
 ### iTerm2 Preferences Not Applied
 
-To apply iTerm2 configurations:
-
-1. First, copy the iTerm2 scripts:
+To apply iTerm2 configurations, copy the iTerm2 scripts:
 
 ```bash
 cp iterm2/iterm2-*.sh /usr/local/bin
 chmod +x /usr/local/bin/iterm2-*.sh
 ```
-
-2. For complete preferences, manually import `iterm2/com.googlecode.iterm2.plist` through iTerm2 settings (Preferences > General > Preferences)
 
 ### Default Shell Not Changed to Zsh
 

@@ -162,17 +162,12 @@ p10k configure
 
 ### iTerm2 配置未生效
 
-要应用 iTerm2 配置：
-
-1. 首先，复制 iTerm2 脚本：
+要应用 iTerm2 配置，复制 iTerm2 脚本：
 
 ```bash
 cp iterm2/iterm2-*.sh /usr/local/bin
 chmod +x /usr/local/bin/iterm2-*.sh
 ```
-
-2. 完整配置需手动导入：在 iTerm2 中打开 `Preferences > General > Preferences`，导入 `iterm2/com.googlecode.iterm2.plist` 文件。
-
 
 ### 默认 Shell 未切换为 Zsh
 
