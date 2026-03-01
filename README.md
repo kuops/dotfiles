@@ -169,6 +169,8 @@ cp iterm2/iterm2-*.sh /usr/local/bin
 chmod +x /usr/local/bin/iterm2-*.sh
 ```
 
+For backing up and restoring iTerm2 preferences, refer to the comments in the `set_iterm2` function in `install.sh`.
+
 ### Default Shell Not Changed to Zsh
 
 If the shell was not automatically changed to Zsh, do it manually:
