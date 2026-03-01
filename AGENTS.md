@@ -1,269 +1,269 @@
-# AGENTS.md - AI Agent Guidelines
+# AGENTS.md - AI Agent 指导文档
 
-This document provides guidelines for AI agents working on this dotfiles repository.
+本文档为 AI agents 在此 dotfiles 仓库中工作的提供指导方针。
 
-## Project Overview
+## 项目概述
 
-This is a macOS dotfiles repository containing configuration files and an automated installation script for setting up a development environment. The project includes:
+这是一个 macOS dotfiles 仓库，包含配置文件和自动化安装脚本，用于设置开发环境。项目包括：
 
-- Shell configuration (Zsh with Oh My Zsh)
-- Homebrew package management (formulas and casks)
-- Development tools (Neovim, Git, Docker, Kubernetes)
-- OpenCode Skills automation
-- iTerm2 terminal configuration
-- Various dotfiles (.zshrc, .gitconfig, .tmux.conf, etc.)
+- Shell 配置（Zsh + Oh My Zsh）
+- Homebrew 包管理（formulas 和 casks）
+- 开发工具（Neovim、Git、Docker、Kubernetes）
+- OpenCode Skills 自动化
+- iTerm2 终端配置
+- 各种 dotfiles（.zshrc、.gitconfig、.tmux.conf 等）
 
-## Build/Lint/Test Commands
+## 构建/检查/测试命令
 
-### Linting Shell Scripts
+### Shell 脚本检查
 
 ```bash
-# Lint all shell scripts
+# 检查所有 shell 脚本
 shellcheck install.sh
 
-# Lint specific shell script
+# 检查特定 shell 脚本
 shellcheck path/to/script.sh
 ```
 
-### Syntax Checking
+### 语法检查
 
 ```bash
-# Check bash syntax without executing
+# 检查 bash 语法（不执行）
 bash -n install.sh
 
-# Check zsh syntax
+# 检查 zsh 语法
 zsh -n script.sh
 ```
 
-### Testing Installation Script
+### 测试安装脚本
 
 ```bash
-# Run the installation script
+# 运行安装脚本
 bash install.sh
 
-# Dry-run mode (if modifying, test with echo first)
-# Add echo before destructive commands during testing
+# 测试模式（修改时先用 echo 测试）
+# 在破坏性命令前添加 echo 进行测试
 ```
 
-### Makefile Commands
+### Makefile 命令
 
 ```bash
-# Generate .gitignore file using gibo
+# 使用 gibo 生成 .gitignore 文件
 make gitignore
 ```
 
-## Code Style Guidelines
+## 代码风格指南
 
-### Shell Scripts (Bash)
+### Shell 脚本（Bash）
 
-#### Script Header
+#### 脚本头部
 
 ```bash
 #!/usr/bin/env bash
 
-set -e          # Exit on error
-set -o pipefail # Pipe failures propagate
-set +o posix    # Allow non-POSIX features
+set -e          # 遇错退出
+set -o pipefail # 管道失败传播
+set +o posix    # 允许非 POSIX 特性
 ```
 
-#### Indentation & Formatting
+#### 缩进和格式
 
-- Use 2 spaces for indentation (per .editorconfig)
-- Use LF line endings
-- UTF-8 encoding
-- Trim trailing whitespace
-- Insert final newline
+- 使用 2 空格缩进（按照 .editorconfig）
+- 使用 LF 换行符
+- UTF-8 编码
+- 删除行尾空白
+- 文件末尾插入换行符
 
-#### Naming Conventions
+#### 命名规范
 
 ```bash
-# Constants and global variables: SCREAMING_SNAKE_CASE
+# 常量和全局变量：SCREAMING_SNAKE_CASE（大写下划线）
 BACKUP_DIR="${HOME}/.backup"
 HOMEBREW_FORMULAS_LIST=(...)
 
-# Local variables: lowercase with underscores
+# 局部变量：小写下划线
 local skill_name
 local installed_list
 
-# Functions: lowercase with underscores
+# 函数：小写下划线
 install_homebrew() {
   # ...
 }
 ```
 
-#### Variable Expansion
+#### 变量展开
 
 ```bash
-# Always quote variables to prevent word splitting
+# 总是引用变量以防止分词
 "${HOME}/.config"
 "${BACKUP_DIR}/.zshrc.$(date +%F-%H%M%S)"
 
-# Use ${} for variable names
+# 使用 ${} 表示变量名
 "${variable_name}"
 
-# Command substitution: use $() instead of backticks
+# 命令替换：使用 $() 而不是反引号
 $(date +%F-%H%M%S)
 ```
 
-#### Arrays
+#### 数组
 
 ```bash
-# Array declaration
+# 数组声明
 local SKILLS_LIST=(
   "item1"
   "item2"
 )
 
-# Array iteration
+# 数组迭代
 for item in "${ARRAY[@]}"; do
   echo "${item}"
 done
 
-# Read lines into array
+# 读取行到数组
 while IFS='' read -r line; do ARRAY+=("$line"); done < <(command)
 ```
 
-#### Conditionals
+#### 条件判断
 
 ```bash
-# Use double brackets for tests
+# 使用双括号进行测试
 if [[ "${variable}" =~ "pattern" ]]; then
   # ...
 fi
 
-# Check command existence
+# 检查命令是否存在
 if ! command -v brew &>/dev/null; then
   # ...
 fi
 
-# Check file/directory existence
+# 检查文件/目录是否存在
 if ! [ -d "${HOME}/.config" ]; then
   # ...
 fi
 
-# Check if diff is silent
+# 检查 diff 是否静默
 if ! diff -q file1 file2 &>/dev/null; then
   # ...
 fi
 ```
 
-#### Error Handling
+#### 错误处理
 
 ```bash
-# Redirect stdout and stderr to /dev/null
+# 重定向 stdout 和 stderr 到 /dev/null
 command &>/dev/null
 
-# Redirect stderr only
+# 仅重定向 stderr
 command 2>/dev/null
 
-# Pipe failures are caught by set -o pipefail
+# 管道失败由 set -o pipefail 捕获
 command1 | command2
 ```
 
-#### Functions
+#### 函数
 
 ```bash
-# Function structure
+# 函数结构
 function_name() {
   local local_var="value"
   
-  # Function logic
+  # 函数逻辑
   if ! command; then
-    echo "Error message"
+    echo "错误信息"
     return 1
   fi
   
-  # Success
-  echo "Success message"
+  # 成功
+  echo "成功信息"
 }
 ```
 
-### Markdown Files
+### Markdown 文件
 
-- Use 4 spaces for indentation (per .editorconfig)
-- Do NOT trim trailing whitespace (per .editorconfig)
-- Use UTF-8 encoding
-- Use LF line endings
+- 使用 4 空格缩进（按照 .editorconfig）
+- 不要删除行尾空白（按照 .editorconfig）
+- 使用 UTF-8 编码
+- 使用 LF 换行符
 
-### Git Commit Messages
+### Git 提交信息
 
-Use gitmoji format:
+使用 gitmoji 格式：
 
 ```bash
-✨ Add new feature
-📝 Update documentation
-🐛 Fix bug
-✏️ Fix typo
-🔧 Update configuration
-➖ Remove dependency
+✨ 添加新功能
+📝 更新文档
+🐛 修复 bug
+✏️ 修正错别字
+🔧 更新配置
+➖ 移除依赖
 ```
 
-Format: `<gitmoji> <description>`
+格式：`<gitmoji> <描述>`
 
-Examples:
-- `✨ Add opencode skills auto-install feature`
-- `📝 Simplify Microsoft Office installation documentation`
+示例：
+- `✨ 添加 opencode skills 自动安装功能`
+- `📝 简化 Microsoft Office 安装文档`
 
-## Repository Structure
+## 仓库结构
 
 ```
 dotfiles/
-├── .config/          # Application configs
-├── .pip/             # pip configuration
-├── .ssh/             # SSH config
-├── .vscode/          # VS Code settings
-├── iterm2/           # iTerm2 scripts and configs
-├── install.sh        # Main installation script
-├── .editorconfig     # Editor configuration
-├── .gitconfig        # Git configuration
-├── .gitignore        # Git ignore rules
-├── .npmrc            # npm configuration
-├── .tmux.conf        # tmux configuration
-├── .zshrc            # Zsh configuration
-├── Makefile          # Build automation
-├── README.md         # English documentation
-└── README.zh-CN.md   # Chinese documentation
+├── .config/          # 应用配置
+├── .pip/             # pip 配置
+├── .ssh/             # SSH 配置
+├── .vscode/          # VS Code 设置
+├── iterm2/           # iTerm2 脚本和配置
+├── install.sh        # 主安装脚本
+├── .editorconfig     # 编辑器配置
+├── .gitconfig        # Git 配置
+├── .gitignore        # Git 忽略规则
+├── .npmrc            # npm 配置
+├── .tmux.conf        # tmux 配置
+├── .zshrc            # Zsh 配置
+├── Makefile          # 构建自动化
+├── README.md         # 英文文档
+└── README.zh-CN.md   # 中文文档
 ```
 
-## Important Guidelines
+## 重要指南
 
-### When Modifying install.sh
+### 修改 install.sh 时
 
-1. Always maintain the backup mechanism before overwriting files
-2. Use `set -e` and `set -o pipefail` at the top
-3. Test syntax with `bash -n install.sh` before running
-4. Run `shellcheck install.sh` to catch common issues
-5. Keep functions modular and single-purpose
-6. Use descriptive function names: `install_*`, `set_*`, `update_*`
+1. 在覆盖文件前始终保留备份机制
+2. 在顶部使用 `set -e` 和 `set -o pipefail`
+3. 运行前用 `bash -n install.sh` 测试语法
+4. 运行 `shellcheck install.sh` 捕获常见问题
+5. 保持函数模块化和单一职责
+6. 使用描述性函数名：`install_*`、`set_*`、`update_*`
 
-### When Adding New Skills
+### 添加新 Skills 时
 
-1. Search for the skill using `npx skills find <query>`
-2. Verify installation with `npx skills list -g`
-3. Add to `SKILLS_LIST` array in `install_opencode_skills()` function
-4. Update both README.md and README.zh-CN.md
+1. 使用 `npx skills find <query>` 搜索 skill
+2. 使用 `npx skills list -g` 验证安装
+3. 添加到 `install_opencode_skills()` 函数的 `SKILLS_LIST` 数组
+4. 同时更新 README.md 和 README.zh-CN.md
 
-### When Working with Homebrew
+### 使用 Homebrew 时
 
-1. Check if package is already installed before installing
-2. Use arrays for package lists: `HOMEBREW_FORMULAS_LIST` and `HOMEBREW_CASKS_LIST`
-3. Test installation commands manually before scripting
-4. Keep formulas and casks in separate lists
+1. 安装前检查包是否已安装
+2. 使用数组管理包列表：`HOMEBREW_FORMULAS_LIST` 和 `HOMEBREW_CASKS_LIST`
+3. 脚本化前手动测试安装命令
+4. 将 formulas 和 casks 分别放在不同的列表中
 
-### Documentation Updates
+### 文档更新
 
-1. Update both English (README.md) and Chinese (README.zh-CN.md) versions
-2. Keep commit messages concise using gitmoji
-3. Test all commands and code blocks before documenting
-4. Maintain consistent formatting across both language versions
+1. 同时更新英文（README.md）和中文（README.zh-CN.md）版本
+2. 使用 gitmoji 保持提交信息简洁
+3. 文档化前测试所有命令和代码块
+4. 在两个语言版本中保持一致的格式
 
-## Testing Checklist
+## 测试清单
 
-Before committing changes:
+提交更改前：
 
-- [ ] Run `bash -n install.sh` to check syntax
-- [ ] Run `shellcheck install.sh` to lint
-- [ ] Test modified functions in isolation
-- [ ] Update documentation if behavior changes
-- [ ] Verify commit message follows gitmoji format
-- [ ] Check that changes don't break existing installations
+- [ ] 运行 `bash -n install.sh` 检查语法
+- [ ] 运行 `shellcheck install.sh` 进行检查
+- [ ] 单独测试修改的函数
+- [ ] 如果行为改变，更新文档
+- [ ] 验证提交信息遵循 gitmoji 格式
+- [ ] 检查更改不会破坏现有安装
