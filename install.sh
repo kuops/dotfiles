@@ -333,12 +333,6 @@ update_dotfiles() {
 set_iterm2() {
   if ! ls /usr/local/bin/iterm2-*.sh &>/dev/null; then
     cp iterm2/iterm2-*.sh /usr/local/bin
-    # backup existing iterm2 preferences
-    # plutil -convert xml1 ${HOME}/Library/Preferences/com.googlecode.iterm2.plist  -o iterm2/com.googlecode.iterm2.plist
-    # change $HOME in template to actual home directory
-    #envsubst <iterm2/com.googlecode.iterm2.plist.tpl >iterm2/com.googlecode.iterm2.plist
-    # replace iterm2 preferences with the new one
-    #plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o "${HOME}/Library/Preferences/com.googlecode.iterm2.plist"
   fi
 }
 
