@@ -1,8 +1,18 @@
 {
     "$schema": "https://opencode.ai/config.json",
     "theme": "one-dark",
+    "share": "disabled",
     "autoupdate": false,
+    "autoshare": false,
     "default_agent": "build",
+    "agent": {
+      "build": {
+        "temperature": 0.4,
+      },
+      "plan": {
+        "temperature": 0.1,
+      }
+    },
     "watcher": {
         "ignore": [
             "node_modules/**",
@@ -30,13 +40,6 @@
                 "Authorization": "Bearer {env:Z_AI_APIKEY}"
             }
         },
-        "web-reader": {
-            "type": "remote",
-            "url": "https://open.bigmodel.cn/api/mcp/web_reader/mcp",
-            "headers": {
-                "Authorization": "Bearer {env:Z_AI_APIKEY}"
-            }
-        },
         "zread": {
             "type": "remote",
             "url": "https://open.bigmodel.cn/api/mcp/zread/mcp",
@@ -59,14 +62,28 @@
             "npm": "@ai-sdk/anthropic",
             "options": {
                 "baseURL": "https://open.bigmodel.cn/api/anthropic/v1",
-                "apiKey": "{env:Z_AI_APIKEY}"
+                "apiKey": "{env:Z_AI_APIKEY}",
+                "setCacheKey": true
             },
             "models": {
               "glm-4.5-air": {},
               "glm-4.7": {
-                "thinking": {
-                  "type": "enabled",
-                  "budgetTokens": 1024
+                "attachment": true,
+                "reasoning": true,
+                "temperature": true,
+                "tool_call": true,
+                "interleaved": {
+                  "field": "reasoning_content",
+                },
+                "options": {
+                  "thinking": {
+                    "type": "enabled",
+                    "budgetTokens": 64000
+                  },
+                },
+                "limit": {
+                  "context": 200000,
+                  "output": 128000
                 },
                 "modalities": {
                   "input": ["text","image"],
@@ -74,9 +91,15 @@
                 }
               },
               "glm-5": {
-                "thinking": {
-                  "type": "enabled",
-                  "budgetTokens": 1024
+                "options": {
+                  "thinking": {
+                    "type": "enabled",
+                    "budgetTokens": 64000
+                  },
+                },
+                "limit": {
+                  "context": 200000,
+                  "output": 128000
                 },
                 "modalities": {
                   "input": ["text","image"],
