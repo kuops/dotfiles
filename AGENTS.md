@@ -187,22 +187,24 @@ function_name() {
 
 ### Git 提交信息
 
+**Commit messages must be in English.**
+
 使用 gitmoji 格式：
 
 ```bash
-✨ 添加新功能
-📝 更新文档
-🐛 修复 bug
-✏️ 修正错别字
-🔧 更新配置
-➖ 移除依赖
+✨ Add new feature
+📝 Update documentation
+🐛 Fix bug
+✏️ Fix typo
+🔧 Update configuration
+➖ Remove dependency
 ```
 
-格式：`<gitmoji> <描述>`
+格式：`<gitmoji> <description>`
 
 示例：
-- `✨ 添加 opencode skills 自动安装功能`
-- `📝 简化 Microsoft Office 安装文档`
+- `✨ Add opencode skills auto installation`
+- `📝 Simplify Microsoft Office installation documentation`
 
 ## 仓库结构
 

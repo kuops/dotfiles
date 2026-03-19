@@ -270,6 +270,11 @@ install_opencode_skills() {
     "anthropics/skills@pptx"
     "anthropics/skills@docx"
     "anthropics/skills@xlsx"
+    "kepano/obsidian-skills@obsidian-bases"
+    "kepano/obsidian-skills@obsidian-markdown"
+    "kepano/obsidian-skills@obsidian-cli"
+    "kepano/obsidian-skills@json-canvas"
+    "kepano/obsidian-skills@defuddle"
   )
 
   local INSTALLED_SKILLS
