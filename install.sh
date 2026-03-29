@@ -12,6 +12,7 @@ HOMEBREW_FORMULAS_LIST=(
   findutils
   fzf
   gawk
+  gh
   gibo
   git
   git-extras
@@ -23,6 +24,7 @@ HOMEBREW_FORMULAS_LIST=(
   hugo
   iproute2mac
   jq
+  k6
   less
   lrzsz
   lua
@@ -31,6 +33,7 @@ HOMEBREW_FORMULAS_LIST=(
   maven
   mdbook
   moreutils
+  neovim
   nmap
   oath-toolkit
   opencode
@@ -92,16 +95,17 @@ BACKUP_DIR="${HOME}/.backup"
 # 初始化全局变量 homebrew 已安装软件包列表
 INSTALLED_FORMULAS_LIST=()
 INSTALLED_CASKS_LIST=()
-while IFS='' read -r line; do INSTALLED_FORMULAS_LIST+=("$line"); done < <(brew list --formula)
-while IFS='' read -r line; do INSTALLED_CASKS_LIST+=("$line"); done < <(brew list --cask)
+if command -v brew &>/dev/null; then
+  while IFS='' read -r line; do INSTALLED_FORMULAS_LIST+=("$line"); done < <(brew list --formula)
+  while IFS='' read -r line; do INSTALLED_CASKS_LIST+=("$line"); done < <(brew list --cask)
+fi
 
 # 设置所有国内加速镜像地址
-export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
-export NVM_NODEJS_ORG_MIRROR="https://registry.npmmirror.com/node"
-PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+PIP_INDEX_URL="https://mirrors.ustc.edu.cn/pypi/simple"
 NPM_MIRROR_REGISTRY="https://registry.npmmirror.com"
 
 # 创建备份目录
@@ -123,21 +127,33 @@ install_ohmyzsh() {
   if ! [ -d "${HOME}/.oh-my-zsh" ]; then
     git clone --depth=1 --branch master https://github.com/ohmyzsh/ohmyzsh.git "${HOME}/.oh-my-zsh"
   fi
-  if ! [ -d "${HOME}/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${HOME}/.oh-my-zsh/custom/themes/powerlevel10k"
-  fi
-  if ! [ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-  fi
-  if ! [ -d "${HOME}/.oh-my-zsh/custom/plugins/you-should-use" ]; then
-    git clone --depth=1 https://github.com/MichaelAquilina/zsh-you-should-use.git "${HOME}/.oh-my-zsh/custom/plugins/you-should-use"
-  fi
-  if ! [ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
-    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-  fi
-  if ! [ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
-    git clone --depth=1 https://github.com/zsh-users/zsh-completions.git "${HOME}/.oh-my-zsh/custom/plugins/zsh-completions"
-  fi
+  local OHMYZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+  local ZSH_THEMES=(
+    "powerlevel10k|https://github.com/romkatv/powerlevel10k.git"
+  )
+  local ZSH_PLUGINS=(
+    "zsh-autosuggestions|https://github.com/zsh-users/zsh-autosuggestions.git"
+    "you-should-use|https://github.com/MichaelAquilina/zsh-you-should-use.git"
+    "zsh-syntax-highlighting|https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    "zsh-completions|https://github.com/zsh-users/zsh-completions.git"
+  )
+  local item name url dir
+  for item in "${ZSH_THEMES[@]}"; do
+    name="${item%%|*}"
+    url="${item##*|}"
+    dir="${OHMYZSH_CUSTOM}/themes/${name}"
+    if ! [ -d "${dir}" ]; then
+      git clone --depth=1 "${url}" "${dir}"
+    fi
+  done
+  for item in "${ZSH_PLUGINS[@]}"; do
+    name="${item%%|*}"
+    url="${item##*|}"
+    dir="${OHMYZSH_CUSTOM}/plugins/${name}"
+    if ! [ -d "${dir}" ]; then
+      git clone --depth=1 "${url}" "${dir}"
+    fi
+  done
 }
 
 # 安装 homebrew formulas 列表中的软件
@@ -174,11 +190,13 @@ install_nvm_nodejs() {
     brew install nvm
   fi
   export NVM_DIR="${HOME}/.nvm"
-  if brew --prefix nvm &>/dev/null; then
+  local nvm_prefix
+  nvm_prefix="$(brew --prefix nvm)"
+  if [ -d "${nvm_prefix}" ]; then
     # shellcheck disable=SC1091
-    source "$(brew --prefix nvm)/nvm.sh"
+    source "${nvm_prefix}/nvm.sh"
   fi
-  if ! [ -f "${HOME}/.nvm/alias/default" ] &>/dev/null; then
+  if ! [ -f "${HOME}/.nvm/alias/default" ]; then
     nvm install --lts
     nvm use --lts
   fi
@@ -187,10 +205,8 @@ install_nvm_nodejs() {
 # 安装 npm 全局软件包
 install_npm_global_packages() {
   local NPM_LIST=(
-    bun
-    gitmoji-cli
-    @z_ai/coding-helper
     agent-browser
+    skills
   )
   local INSTALLED_NPM_LIST=()
   local NPM_GLOBAL_PACKAGE_JSON
@@ -208,6 +224,59 @@ install_npm_global_packages() {
   if [ "${#NEED_INSTALL_NPM_LIST[@]}" -ne 0 ]; then
     npm install -g "${NEED_INSTALL_NPM_LIST[@]}" --registry "${NPM_MIRROR_REGISTRY}"
   fi
+}
+
+# 安装 opencode skills
+install_opencode_skills() {
+  if ! command -v skills &>/dev/null; then
+    echo "skills 命令未安装，跳过 opencode skills 安装"
+    return 0
+  fi
+  local SKILLS_LIST=(
+    "https://github.com/wshobson/agents|go-concurrency-patterns"
+    "https://github.com/affaan-m/everything-claude-code|golang-patterns"
+    "https://github.com/Jeffallan/claude-skills|golang-pro"
+    "https://github.com/anthropics/skills|frontend-design"
+    "https://github.com/openai/skills|frontend-skill"
+    "https://github.com/MiniMax-AI/skills|frontend-dev"
+    "https://github.com/Jeffallan/claude-skills|test-master"
+    "https://github.com/antfu/skills|vitest"
+    "https://github.com/obra/superpowers|requesting-code-review"
+    "https://github.com/obra/superpowers|receiving-code-review"
+    "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill|ui-ux-pro-max"
+    "https://github.com/vercel-labs/agent-skills|web-design-guidelines"
+    "https://github.com/anthropics/skills|skill-creator"
+    "https://github.com/anthropics/skills|mcp-builder"
+    "https://github.com/anthropics/skills|pptx"
+    "https://github.com/anthropics/skills|docx"
+    "https://github.com/anthropics/skills|xlsx"
+    "https://github.com/anthropics/skills|webapp-testing"
+    "https://github.com/obra/superpowers|brainstorming"
+    "https://github.com/obra/superpowers|writing-plans"
+    "https://github.com/obra/superpowers|test-driven-development"
+    "https://github.com/MiniMax-AI/skills|fullstack-dev"
+    "https://github.com/wshobson/agents|bash-defensive-patterns"
+    "https://github.com/wshobson/agents|api-design-principles"
+    "https://github.com/wshobson/agents|architecture-patterns"
+    "https://github.com/wshobson/agents|tailwind-design-system"
+    "https://github.com/affaan-m/everything-claude-code|golang-testing"
+    "https://github.com/othmanadi/planning-with-files|planning-with-files"
+    "https://github.com/vercel-labs/agent-skills|vercel-react-best-practices"
+    "https://github.com/kepano/obsidian-skills|obsidian-bases"
+    "https://github.com/kepano/obsidian-skills|obsidian-markdown"
+    "https://github.com/kepano/obsidian-skills|obsidian-cli"
+    "https://github.com/kepano/obsidian-skills|json-canvas"
+    "https://github.com/kepano/obsidian-skills|defuddle"
+  )
+  local item repo skill_name
+  for item in "${SKILLS_LIST[@]}"; do
+    repo="${item%%|*}"
+    skill_name="${item##*|}"
+    if [ -f "${HOME}/.agents/skills/${skill_name}/SKILL.md" ]; then
+      continue
+    fi
+    skills add "${repo}" --skill "${skill_name}" -y -g || echo "安装 skill ${skill_name} 失败，跳过"
+  done
 }
 
 # 安装 Python pip 全局软件包
@@ -233,61 +302,12 @@ install_pip_packages() {
   fi
 }
 
-# 安装 neovim 和 LazyVim
-install_neovim() {
-  if ! brew list neovim &>/dev/null; then
-    brew install neovim
-  fi
+# 安装 LazyVim
+set_neovim() {
   if ! [ -d "${HOME}/.config/nvim" ]; then
-    git clone https://github.com/LazyVim/starter "${HOME}/.config/nvim"
-    rm -rf ~/.config/nvim/.git
+    git clone --depth=1 https://github.com/LazyVim/starter "${HOME}/.config/nvim"
+    rm -rf "${HOME}/.config/nvim/.git"
   fi
-}
-
-# 安装 opencode skills
-install_opencode_skills() {
-  local SKILLS_LIST=(
-    "vercel-labs/agent-browser@agent-browser"
-    "wshobson/agents@api-design-principles"
-    "obra/superpowers@brainstorming"
-    "obra/superpowers@requesting-code-review"
-    "obra/superpowers@receiving-code-review"
-    "anthropics/skills@skill-creator"
-    "anthropics/skills@find-skills"
-    "anthropics/skills@frontend-design"
-    "jeffallan/claude-skills@golang-pro"
-    "affaan-m/everything-claude-code@golang-patterns"
-    "affaan-m/everything-claude-code@golang-testing"
-    "othmanadi/planning-with-files@planning-with-files"
-    "wshobson/agents@tailwind-design-system"
-    "mattpocock/skills@tdd"
-    "obra/superpowers@test-driven-development"
-    "nextlevelbuilder/ui-ux-pro-max-skill@ui-ux-pro-max"
-    "vercel-labs/agent-skills@vercel-react-best-practices"
-    "antfu/skills@vitest"
-    "vercel-labs/agent-skills@web-design-guidelines"
-    "anthropics/skills@webapp-testing"
-    "anthropics/skills@pptx"
-    "anthropics/skills@docx"
-    "anthropics/skills@xlsx"
-    "kepano/obsidian-skills@obsidian-bases"
-    "kepano/obsidian-skills@obsidian-markdown"
-    "kepano/obsidian-skills@obsidian-cli"
-    "kepano/obsidian-skills@json-canvas"
-    "kepano/obsidian-skills@defuddle"
-  )
-
-  local INSTALLED_SKILLS
-  INSTALLED_SKILLS=$(npx skills list -g 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -E "^\s+[a-z]" | awk '{print $1}')
-
-  for skill in "${SKILLS_LIST[@]}"; do
-    local skill_name
-    skill_name=$(echo "$skill" | cut -d'@' -f2)
-    if ! echo "$INSTALLED_SKILLS" | grep -q "^${skill_name}$"; then
-      echo "正在安装 skill: ${skill}"
-      npx skills add -g "$skill" -y
-    fi
-  done
 }
 
 # 设置 tmux
@@ -301,47 +321,44 @@ set_tmux() {
 }
 
 # 更新 dotfiles
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+backup_and_copy() {
+  local src="$1"
+  local dest="$2"
+  local backup_name="$3"
+  if ! diff -q "${src}" "${dest}" &>/dev/null; then
+    [ -f "${dest}" ] && mv "${dest}" "${BACKUP_DIR}/${backup_name}.$(date +%F-%H%M%S)"
+    mkdir -p "$(dirname "${dest}")"
+    cp "${src}" "${dest}"
+  fi
+}
 update_dotfiles() {
-  if ! diff -q .zshrc "${HOME}/.zshrc" &>/dev/null; then
-    [ -f "${HOME}/.zshrc" ] && mv "${HOME}/.zshrc" "${BACKUP_DIR}/.zshrc.$(date +%F-%H%M%S)"
-    cp .zshrc "${HOME}/.zshrc"
-  fi
-  if ! diff -q .ssh/config "${HOME}/.ssh/config" &>/dev/null; then
-    mkdir -p "${HOME}/.ssh"
-    [ -f "${HOME}/.ssh/config" ] && mv "${HOME}/.ssh/config" "${BACKUP_DIR}/ssh_config.$(date +%F-%H%M%S)"
-    cp .ssh/config "${HOME}/.ssh/config"
-    chmod 600 "${HOME}/.ssh/config"
-  fi
-  if ! diff -q .pip/pip.conf "${HOME}/.pip/pip.conf" &>/dev/null; then
-    mkdir -p "${HOME}/.pip"
-    [ -f "${HOME}/.pip/pip.conf" ] && mv "${HOME}/.pip/pip.conf" "${BACKUP_DIR}/pip.conf.$(date +%F-%H%M%S)"
-    cp .pip/pip.conf "${HOME}/.pip/pip.conf"
-  fi
-  if ! diff -q .npmrc "${HOME}/.npmrc" &>/dev/null; then
-    [ -f "${HOME}/.npmrc" ] && mv "${HOME}/.npmrc" "${BACKUP_DIR}/.npmrc.$(date +%F-%H%M%S)"
-    cp .npmrc "${HOME}/.npmrc"
-  fi
-  if ! diff -q .tmux.conf "${HOME}/.tmux.conf" &>/dev/null; then
-    [ -f "${HOME}/.tmux.conf" ] && mv "${HOME}/.tmux.conf" "${BACKUP_DIR}/.tmux.conf.$(date +%F-%H%M%S)"
-    cp .tmux.conf "${HOME}/.tmux.conf"
-  fi
-  if ! diff -q .config/opencode/opencode.json "${HOME}/.config/opencode/opencode.json" &>/dev/null; then
-    mkdir -p "${HOME}/.config/opencode"
-    [ -f "${HOME}/.config/opencode/opencode.json" ] && mv "${HOME}/.config/opencode/opencode.json" "${BACKUP_DIR}/opencode.json.$(date +%F-%H%M%S)"
-    cp .config/opencode/opencode.json "${HOME}/.config/opencode/opencode.json"
-  fi
-  if ! diff -q .config/opencode/AGENTS.md "${HOME}/.config/opencode/AGENTS.md" &>/dev/null; then
-    mkdir -p "${HOME}/.config/opencode"
-    [ -f "${HOME}/.config/opencode/AGENTS.md" ] && mv "${HOME}/.config/opencode/AGENTS.md" "${BACKUP_DIR}/opencode_AGENTS.md.$(date +%F-%H%M%S)"
-    cp .config/opencode/AGENTS.md "${HOME}/.config/opencode/AGENTS.md"
-  fi
+  cd "${DOTFILES_DIR}"
+  backup_and_copy .zshrc "${HOME}/.zshrc" ".zshrc"
+  backup_and_copy .ssh/config "${HOME}/.ssh/config" "ssh_config"
+  chmod 600 "${HOME}/.ssh/config"
+  backup_and_copy .pip/pip.conf "${HOME}/.pip/pip.conf" "pip.conf"
+  backup_and_copy .npmrc "${HOME}/.npmrc" ".npmrc"
+  backup_and_copy .tmux.conf "${HOME}/.tmux.conf" ".tmux.conf"
+  backup_and_copy .config/nvim/lua/config/options.lua "${HOME}/.config/nvim/lua/config/options.lua" "nvim_options.lua"
+  backup_and_copy .config/opencode/opencode.json "${HOME}/.config/opencode/opencode.json" "opencode.json"
+  backup_and_copy .config/opencode/AGENTS.md "${HOME}/.config/opencode/AGENTS.md" "opencode_AGENTS.md"
+  backup_and_copy .gitconfig "${HOME}/.gitconfig" ".gitconfig"
 }
 
 # 设置 iterm2
-set_iterm2() {
-  if ! ls /usr/local/bin/iterm2-*.sh &>/dev/null; then
-    cp iterm2/iterm2-*.sh /usr/local/bin
-  fi
+set_iterm2_zmodem() {
+  local script_base_path="/usr/local/bin"
+  local src_file
+  for src_file in "${DOTFILES_DIR}"/iterm2/iterm2-*.sh; do
+    [ -f "${src_file}" ] || continue
+    local base_name
+    base_name="$(basename "${src_file}")"
+    if ! [ -f "${script_base_path}/${base_name}" ]; then
+      cp "${src_file}" "${script_base_path}/"
+      chmod +x "${script_base_path}/${base_name}"
+    fi
+  done
 }
 
 # 设置 kubectl
@@ -351,18 +368,7 @@ set_kubectl() {
   fi
 }
 
-update_gitconfig() {
-  if [ -f "${HOME}/.gitconfig" ]; then
-    if ! diff -q .gitconfig "${HOME}/.gitconfig" &>/dev/null; then
-      mv "${HOME}/.gitconfig" "${BACKUP_DIR}/.gitconfig.$(date +%F-%H%M%S)"
-      cp .gitconfig "${HOME}/.gitconfig"
-    fi
-  else
-    cp .gitconfig "${HOME}/.gitconfig"
-  fi
-}
-
-# Change shell to zsh
+# 修改 shell 为 zsh
 chsh_zsh() {
   if ! [[ "${SHELL}" =~ "zsh" ]]; then
     chsh -s /bin/zsh
@@ -377,14 +383,13 @@ main() {
   install_homebrew_casks_packages
   install_nvm_nodejs
   install_npm_global_packages
-  install_pip_packages
-  install_neovim
   install_opencode_skills
+  install_pip_packages
+  set_neovim
   set_kubectl
   update_dotfiles
   set_tmux
-  set_iterm2
-  update_gitconfig
+  set_iterm2_zmodem
   chsh_zsh
 }
 

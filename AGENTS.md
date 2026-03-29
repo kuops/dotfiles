@@ -9,8 +9,8 @@
 - Shell 配置（Zsh + Oh My Zsh）
 - Homebrew 包管理（formulas 和 casks）
 - 开发工具（Neovim、Git、Docker、Kubernetes）
-- OpenCode Skills 自动化
 - iTerm2 终端配置
+- OpenCode Skills 自动化安装
 - 各种 dotfiles（.zshrc、.gitconfig、.tmux.conf 等）
 
 ## 构建/检查/测试命令
@@ -82,7 +82,7 @@ BACKUP_DIR="${HOME}/.backup"
 HOMEBREW_FORMULAS_LIST=(...)
 
 # 局部变量：小写下划线
-local skill_name
+local package_name
 local installed_list
 
 # 函数：小写下划线
@@ -109,7 +109,7 @@ $(date +%F-%H%M%S)
 
 ```bash
 # 数组声明
-local SKILLS_LIST=(
+local PACKAGE_LIST=(
   "item1"
   "item2"
 )
@@ -203,28 +203,36 @@ function_name() {
 格式：`<gitmoji> <description>`
 
 示例：
-- `✨ Add opencode skills auto installation`
+- `✨ Add neovim to homebrew formulas list`
 - `📝 Simplify Microsoft Office installation documentation`
 
 ## 仓库结构
 
 ```
 dotfiles/
-├── .config/          # 应用配置
-├── .pip/             # pip 配置
-├── .ssh/             # SSH 配置
-├── .vscode/          # VS Code 设置
-├── iterm2/           # iTerm2 脚本和配置
-├── install.sh        # 主安装脚本
-├── .editorconfig     # 编辑器配置
-├── .gitconfig        # Git 配置
-├── .gitignore        # Git 忽略规则
-├── .npmrc            # npm 配置
-├── .tmux.conf        # tmux 配置
-├── .zshrc            # Zsh 配置
-├── Makefile          # 构建自动化
-├── README.md         # 英文文档
-└── README.zh-CN.md   # 中文文档
+├── .config/
+│   ├── nvim/
+│   │   └── lua/
+│   │       └── config/
+│   │           └── options.lua  # Neovim 自定义选项
+│   └── opencode/
+│       ├── AGENTS.md            # OpenCode AI Agent 指导文档
+│       └── opencode.json        # OpenCode 配置
+├── AGENTS.md                    # AI Agent 指导文档（项目根目录）
+├── .pip/              # pip 配置
+├── .ssh/              # SSH 配置
+├── iterm2/            # iTerm2 脚本和配置
+├── install.sh         # 主安装脚本
+├── .editorconfig      # 编辑器配置
+├── .gitconfig         # Git 配置
+├── .gitignore         # Git 忽略规则
+├── .npmrc             # npm 配置
+├── .tmux.conf         # tmux 配置
+├── .zshrc             # Zsh 配置
+├── .zshrc_work.example # 工作环境 Zsh 配置示例
+├── LICENSE            # MIT 许可证
+├── Makefile           # 构建自动化
+└── README.md          # 项目文档
 ```
 
 ## 重要指南
@@ -238,12 +246,11 @@ dotfiles/
 5. 保持函数模块化和单一职责
 6. 使用描述性函数名：`install_*`、`set_*`、`update_*`
 
-### 添加新 Skills 时
+### 添加新 Homebrew 包时
 
-1. 使用 `npx skills find <query>` 搜索 skill
-2. 使用 `npx skills list -g` 验证安装
-3. 添加到 `install_opencode_skills()` 函数的 `SKILLS_LIST` 数组
-4. 同时更新 README.md 和 README.zh-CN.md
+1. 安装前手动测试安装命令
+2. 添加到对应的列表：`HOMEBREW_FORMULAS_LIST` 或 `HOMEBREW_CASKS_LIST`
+3. 更新 README.md
 
 ### 使用 Homebrew 时
 
@@ -252,12 +259,18 @@ dotfiles/
 3. 脚本化前手动测试安装命令
 4. 将 formulas 和 casks 分别放在不同的列表中
 
+### 添加新 OpenCode Skill 时
+
+1. 将新 skill 添加到 `install_opencode_skills` 函数的 `SKILLS_LIST` 数组中
+2. 格式为 `"仓库地址|skill名称"`
+3. 函数会自动跳过已安装的 skill（检查 `${HOME}/.agents/skills/<skill_name>/SKILL.md`）
+4. 更新 README.md 的 OpenCode Skills 清单
+
 ### 文档更新
 
-1. 同时更新英文（README.md）和中文（README.zh-CN.md）版本
+1. 更新 README.md
 2. 使用 gitmoji 保持提交信息简洁
 3. 文档化前测试所有命令和代码块
-4. 在两个语言版本中保持一致的格式
 
 ## 测试清单
 

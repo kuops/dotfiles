@@ -31,7 +31,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
@@ -135,7 +135,7 @@ source <(fzf --zsh)
 [ -f /usr/local/bin/nvim ] && alias vim='/usr/local/bin/nvim'
 
 # Set golang
-export GOPROXY="https://goproxy.io,https://goproxy.cn,direct"
+export GOPROXY="https://goproxy.cn,direct"
 export PATH="$HOME/go/bin:$PATH"
 
 # Set JAVA_HOME
@@ -168,9 +168,6 @@ export PYTHON3_HOST_PROG="/usr/local/bin/python3"
 
 # Set python PATH
 export PATH="$(brew --prefix python)/libexec/bin:$HOME/.local/bin:$PATH"
-
-# set nvm mirrors
-export NVM_NODEJS_ORG_MIRROR="https://npmmirror.com/mirrors/node/"
 
 # Import work need variables
 [ -f ~/.zshrc_work ] && source ~/.zshrc_work

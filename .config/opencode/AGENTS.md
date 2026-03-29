@@ -1,1 +1,15 @@
 - 使用中文进行对话
+- `/init` 命令生成的 AGENTS.md 必须使用中文撰写
+- 所有 Python 项目安装软件包时必须使用 venv（`python -m venv .venv`），禁止直接运行 `pip install` 到系统或全局环境
+- 安装依赖前先激活虚拟环境：`source .venv/bin/activate`，或通过 `python -m pip install` 在 venv 内执行
+- 如果项目目录下不存在 `.venv`，应先创建虚拟环境再安装依赖
+- 创建新项目时必须添加 `.editorconfig` 文件，统一编辑器格式规范（缩进、换行符、编码等）
+- 创建新项目时必须添加 `.gitignore` 文件，确保无关文件（如 `.venv/`、`node_modules/`、`__pycache__/`、`.env`、IDE 配置、构建产物等）不会被提交
+- 执行 `git commit` 前必须检查 `git status` 和 `git diff --staged`，确认无敏感信息或无关文件被包含
+- 每个项目必须在 `docs/` 目录下维护以下文档：
+  - `docs/development.md`：开发文档（环境搭建、构建运行、开发流程）
+  - `docs/testing.md`：测试文档（测试策略、运行方式、覆盖率要求）
+  - `docs/architecture.md`：架构设计文档（系统结构、技术选型、模块关系）
+  - `docs/issues.md`：问题记录文档（已知问题、排查过程、解决方案）
+- 当新增功能、修改架构、遇到并解决问题时，必须主动更新对应文档
+- 获取网页内容时优先使用 `webfetch` 工具；若连续失败两次，改用 `agent-browser` 打开页面获取内容

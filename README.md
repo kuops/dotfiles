@@ -4,209 +4,207 @@
 ![Platform](https://img.shields.io/badge/platform-amd64-blue?style=flat-square&logo=Intel)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
-> Personal macOS configuration files and Homebrew applications
+> 个人的 macOS 配置文件与 Homebrew 应用集合
 
-[English](README.md) | [中文](README.zh-CN.md)
 
----
+## 📖 简介
 
-## 📖 Introduction
+这是一套精心配置的 macOS 开发环境，包含常用的命令行工具、开发工具和应用程序的自动化安装配置。所有包管理器（Homebrew、npm、pip、Go）均已配置中科大/清华等国内镜像源，确保安装速度。
 
-A fully automated macOS development environment setup with popular command-line tools, development tools, and applications. All package managers are configured with China mirror sources for faster installation.
+## ✨ 主要特性
 
-## ✨ Key Features
+- 🚀 **一键配置** - 自动化脚本快速完成完整的开发环境配置
+- 🇨🇳 **国内优化** - 所有包管理器（Homebrew、npm、pip、Go）均已配置国内镜像加速
+- 🛠️ **丰富工具集** - 预配置 Neovim (LazyVim)、Git、Docker、Kubernetes 等开发工具
+- 🎨 **美化终端** - Oh My Zsh + Powerlevel10k + iTerm2 自定义配置
+- 📦 **精选应用** - 精心挑选的常用应用，包括 Chrome、VS Code、微信、Telegram 等
 
-- 🚀 **One-click Setup** - Automated script for quick and complete development environment configuration
-- 🇨🇳 **China Optimized** - All package managers (Homebrew, npm, pip, etc.) configured with China mirrors
-- 🛠️ **Rich Toolset** - Pre-configured development tools including Neovim (LazyVim), Git, Docker, Kubernetes
-- 🎨 **Beautiful Terminal** - Oh My Zsh + Powerlevel10k + iTerm2 with custom configurations
-- 📦 **Essential Apps** - Curated collection of daily-use applications including Chrome, VS Code, WeChat, Telegram
+## 📦 安装清单
 
-## 📦 Installation List
+### Homebrew 命令行工具
+- **版本控制**: git、git-extras、tig
+- **编辑器**: Neovim (LazyVim)
+- **终端工具**: tmux、fzf、ripgrep、tree、tokei、watch
+- **系统工具**: coreutils、diffutils、findutils、gnu-getopt、gnu-tar、gnu-sed、less、unzip
+- **开发工具**: make、maven、shellcheck、jq、ctags、hugo、opencode
+- **编程语言**: Go、Python、Rust、Lua、Node.js (通过 nvm)
+- **容器与编排**: Docker、Kubernetes (kubectl、helm、kustomize、kompose、istioctl、kind、kubebuilder)
+- **其他工具**: gawk、gibo、grep、iproute2mac、lrzsz、luarocks、mdbook、moreutils、nmap、oath-toolkit、pipx、sshpass、telnet
 
-### Homebrew Command-line Tools
-- **Version Control**: git, git-extras, tig
-- **Editor**: Neovim (LazyVim)
-- **Terminal Tools**: tmux, fzf, ripgrep, tree, tokei, watch
-- **System Tools**: coreutils, diffutils, findutils, gnu-getopt, gnu-tar, gnu-sed, less, unzip
-- **Development Tools**: make, maven, shellcheck, jq, ctags, hugo
-- **Programming Languages**: Go, Python, Rust, Lua, Node.js (via nvm)
-- **Java Runtime**: GraalVM JDK
-- **Containers & Orchestration**: Docker, Kubernetes (kubectl, helm, kustomize, kompose, istioctl, kind, kubebuilder)
-- **Other Tools**: gawk, gibo, grep, iproute2mac, lrzsz, luarocks, mdbook, moreutils, nmap, oath-toolkit, opencode, pipx, sshpass, telnet
+### Python 工具 (通过 pipx)
+- **开发工具**: s3cmd、ansible、ansible-lint
+- **数据库**: mycli、pgcli
+- **网络工具**: mitmproxy
 
-### Python Tools (via pipx)
-- **Development Tools**: s3cmd, ansible, ansible-lint
-- **Databases**: mycli, pgcli
-- **Network Tools**: mitmproxy
-
-### Node.js Tools (via npm)
-- bun, gitmoji-cli, @z_ai/coding-helper, agent-browser
+### Node.js 工具 (通过 npm)
+- skills、agent-browser
 
 ### OpenCode Skills
-Automatically installs 23 popular OpenCode Skills, including:
-- **Frontend Development**: frontend-design, vercel-react-best-practices, tailwind-design-system, vitest, web-design-guidelines
-- **Testing**: tdd, test-driven-development, webapp-testing
-- **Golang**: golang-pro, golang-patterns, golang-testing
-- **UI/UX**: ui-ux-pro-max
-- **Document Processing**: pptx, docx, xlsx (PowerPoint, Word, Excel)
-- **Development Tools**: agent-browser, api-design-principles, brainstorming, find-skills, skill-creator, planning-with-files
-- **Code Review**: requesting-code-review, receiving-code-review
+- **Go**: go-concurrency-patterns、golang-patterns、golang-pro、golang-testing
+- **前端**: frontend-design、frontend-skill、frontend-dev、tailwind-design-system
+- **测试**: test-master、vitest、test-driven-development
+- **代码审查**: requesting-code-review、receiving-code-review
+- **设计**: ui-ux-pro-max、web-design-guidelines
+- **规划**: brainstorming、writing-plans、planning-with-files
+- **工具**: skill-creator、mcp-builder
+- **文档**: pptx、docx、xlsx
+- **其他**: webapp-testing、fullstack-dev、bash-defensive-patterns、api-design-principles、architecture-patterns、vercel-react-best-practices、obsidian-bases、obsidian-markdown、obsidian-cli、json-canvas、defuddle
 
-### Oh My Zsh Plugins
-- Powerlevel10k, zsh-autosuggestions, zsh-syntax-highlighting, zsh-completions, you-should-use
+### Oh My Zsh 插件
+- Powerlevel10k、zsh-autosuggestions、zsh-syntax-highlighting、zsh-completions、you-should-use
 
-### Homebrew Applications
-- **Browser**: Google Chrome
-- **Development Tools**: Visual Studio Code, Docker, Android Platform Tools, GraalVM JDK
-- **Communication**: WeChat, Telegram, QQ, Feishu
-- **Cloud Storage**: Aliyun Drive, Baidu Netdisk
-- **Media Players**: IINA, QQ Music
-- **Network Tools**: Clash Verge Rev, Wireshark
-- **Virtualization**: VirtualBox, Vagrant
-- **Terminal**: iTerm2
-- **Fonts**: Cascadia Code NF
-- **Productivity**: Citrix Workspace, Tencent Meeting, Tencent Lemon, Obsidian
+### Homebrew 应用程序
+- **浏览器**: Google Chrome
+- **开发工具**: Visual Studio Code、Docker、Android Platform Tools、GraalVM JDK
+- **通讯**: 微信、Telegram、QQ、飞书
+- **云存储**: 阿里云盘、百度网盘
+- **媒体**: IINA、QQ音乐
+- **网络工具**: Clash Verge Rev、Wireshark
+- **虚拟化**: VirtualBox、Vagrant
+- **终端**: iTerm2
+- **字体**: Cascadia Code NF
+- **生产力**: Citrix Workspace、腾讯会议、柠檬清理、Obsidian
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-### Prerequisites
+### 前置要求
 
-Install Xcode command line tools:
+安装 Xcode 命令行工具：
 
 ```bash
 xcode-select --install
 ```
 
-Clone this repository:
+克隆本仓库：
 
 ```bash
 git clone git@github.com:kuops/dotfiles.git
 ```
 
-### Proxy Configuration (Required for China)
+### 代理配置（国内必须）
 
-**Important**: You must configure a proxy before running the installation script, as some software cannot be downloaded directly in China.
+**重要提示**：在国内环境下，运行安装脚本前必须配置代理，因为某些软件无法直接下载。
 
-Set the following environment variables:
+请设置以下环境变量：
 
 ```bash
-export ALL_PROXY="proxy_ip:port"
+export ALL_PROXY="代理地址:端口"
 export NO_PROXY=".cn,.npmmirror.com,localhost,127.0.0.1"
 ```
 
-### Run Installation Script
+### 运行安装脚本
 
-Navigate to the repository directory and run the installation script:
+进入项目目录并执行安装脚本：
 
 ```bash
 cd dotfiles && bash install.sh
 ```
 
-### What the Script Does
+### 安装脚本功能
 
-The installation script automates the following tasks:
+安装脚本会自动完成以下任务：
 
-- ✅ Installs Homebrew and configures China mirrors for faster downloads
-- ✅ Installs popular command-line tools and applications
-- ✅ Sets up Oh My Zsh with Powerlevel10k theme and switches default shell to Zsh
-- ✅ Installs and configures Neovim with LazyVim configuration
-- ✅ Automatically installs 23 popular OpenCode Skills
-- ✅ Configures pip, npm, git, SSH, and other development tools
-- ✅ Sets up iTerm2 preferences and scripts
+- ✅ 安装 Homebrew 并配置国内镜像以加速下载
+- ✅ 安装常用命令行工具和应用程序
+- ✅ 安装 Oh My Zsh 和 Powerlevel10k 主题，并切换默认 Shell 为 Zsh
+- ✅ 安装并配置 Neovim 和 LazyVim
+- ✅ 安装 OpenCode Skills（自动跳过已安装的 skill）
+- ✅ 配置 pip、npm、git、SSH 等开发工具
+- ✅ 配置 iTerm2 偏好设置和脚本
 
-## 📝 Post-Installation Usage
+## 📝 安装后使用说明
 
-### tmux Plugin Installation
+### tmux 插件安装
 
-Install tmux plugins using tpm:
+使用 tpm 安装 tmux 插件：
 
 ```bash
-# Start a new tmux session
+# 启动一个新的 tmux 会话
 tmux
 ```
 
-Then press `Ctrl + a` followed by `Shift + I` (capital I) to install plugins.
+然后按 `Ctrl + a`，再按 `Shift + I`（大写 I）来安装插件。
 
 ### Microsoft Office
 
-Refer to [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS)
+参考 [Microsoft-Office-For-MacOS](https://github.com/alsyundawy/Microsoft-Office-For-MacOS)
 
-## ❓ Troubleshooting
+## ❓ 常见问题
 
-### Homebrew Installation Fails
+### Homebrew 安装失败
 
-If the automatic installation fails, try installing Homebrew manually:
+如果自动安装失败，请尝试手动安装 Homebrew：
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-### tmux Plugins Not Loading
+### tmux 插件未加载
 
-If tmux plugins are not working, install them manually:
+如果 tmux 插件未正常工作，请手动安装：
 
 ```bash
-# Install tmux plugin manager if not present
+# 如果 tmux 插件管理器不存在，先安装
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# Press prefix + I (Ctrl-a then I) to install plugins
+# 按下前缀键 Ctrl + a，然后按大写 I 安装插件
 ```
 
-### Powerlevel10k Prompt Not Working
+### Powerlevel10k 提示符不显示
 
-If the Powerlevel10k theme is not displaying correctly, run the configuration wizard:
+如果 Powerlevel10k 主题未正确显示，请运行配置向导：
 
 ```bash
 p10k configure
 ```
 
-### iTerm2 Preferences Not Applied
+### iTerm2 配置未生效
 
-To apply iTerm2 configurations, copy the iTerm2 scripts:
+要应用 iTerm2 配置，复制 iTerm2 脚本：
 
 ```bash
 cp iterm2/iterm2-*.sh /usr/local/bin
 chmod +x /usr/local/bin/iterm2-*.sh
 ```
 
-For backing up and restoring iTerm2 preferences:
+如需备份和还原 iTerm2 偏好设置：
 
 ```bash
-# Backup existing iTerm2 configuration
+# 备份现有 iTerm2 配置
 plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o iterm2/com.googlecode.iterm2.plist
 
-# Restore iTerm2 configuration
+# 还原 iTerm2 配置
 plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o ~/Library/Preferences/com.googlecode.iterm2.plist
 ```
 
-For creating a portable iTerm2 configuration template:
+如需生成可移植的 iTerm2 配置模板：
 
 ```bash
-# Export current configuration to XML format
+# 导出当前配置为 XML 格式
 plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o iterm2/com.googlecode.iterm2.plist
 
-# Replace actual home directory with $HOME variable to create template
-sed "s|${HOME}|\\\$HOME|g" iterm2/com.googlecode.iterm2.plist > iterm2/com.googlecode.iterm2.plist.tpl
+# 将真实 home 目录替换为 $HOME 变量，生成模板文件
+sed "s|${HOME}|\\\${HOME}|g" iterm2/com.googlecode.iterm2.plist > iterm2/com.googlecode.iterm2.plist.tpl
 
-# Restore configuration from template (replace $HOME with actual path and convert to binary)
-envsubst < iterm2/com.googlecode.iterm2.plist.tpl | plutil -convert binary1 -o ~/Library/Preferences/com.googlecode.iterm2.plist
+# 从模板还原配置（将 $HOME 替换为实际路径并转换为二进制格式）
+envsubst < iterm2/com.googlecode.iterm2.plist.tpl > iterm2/com.googlecode.iterm2.plist
+plutil -convert binary1 iterm2/com.googlecode.iterm2.plist -o ~/Library/Preferences/com.googlecode.iterm2.plist
 ```
 
-### Default Shell Not Changed to Zsh
+### 默认 Shell 未切换为 Zsh
 
-If the shell was not automatically changed to Zsh, do it manually:
+如果 Shell 未自动切换为 Zsh，请手动执行：
 
 ```bash
 chsh -s /bin/zsh
 ```
 
-You'll need to log out and log back in for the changes to take effect.
+需要退出并重新登录后才能生效。
 
-## 🤝 Contributing
+## 🤝 贡献
 
-Issues and Pull Requests are welcome!
+欢迎提交 Issue 和 Pull Request！
 
-## 📄 License
+## 📄 许可证
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
