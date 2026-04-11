@@ -1,4 +1,4 @@
-- 使用中文进行对话
+- 使用中文进行思考和回答
 - `/init` 命令生成的 AGENTS.md 必须使用中文撰写
 - 所有 Python 项目安装软件包时必须使用 venv（`python -m venv .venv`），禁止直接运行 `pip install` 到系统或全局环境
 - 安装依赖前先激活虚拟环境：`source .venv/bin/activate`，或通过 `python -m pip install` 在 venv 内执行

@@ -13,6 +13,10 @@
         "temperature": 0.1
       }
     },
+    "plugin": [
+      "superpowers@git+https://github.com/obra/superpowers.git",
+      "opencode-codebuddy-auth"
+    ],
     "watcher": {
         "ignore": [
             "node_modules/**",
@@ -71,6 +75,34 @@
         }
     },
     "provider": {
+        "codebuddy": {
+          "npm": "@ai-sdk/openai-compatible",
+          "name": "CodeBuddy",
+          "options": {
+            "baseURL": "https://www.codebuddy.cn/v2",
+            "setCacheKey": true
+          },
+          "models": {
+            "auto":                    { "name": "Auto", "contextLength": 168000 },
+            "minimax-m2.7":            { "name": "MiniMax-M2.7", "contextLength": 200000 },
+            "glm-5v-turbo":            { "name": "GLM-5v-Turbo", "contextLength": 200000 },
+            "glm-5.1":                 { "name": "GLM-5.1", "contextLength": 200000 },
+            "glm-5.0-turbo":           { "name": "GLM-5.0-Turbo", "contextLength": 200000 },
+            "glm-5.0":                 { "name": "GLM-5.0", "contextLength": 200000 },
+            "glm-4.7":                 { "name": "GLM-4.7", "contextLength": 200000 },
+            "glm-4.6v":                { "name": "GLM-4.6V", "contextLength": 128000 },
+            "glm-4.6":                 { "name": "GLM-4.6", "contextLength": 168000 },
+            "kimi-k2.5":               { "name": "Kimi-K2.5", "contextLength": 256000 },
+            "kimi-k2-thinking":        { "name": "Kimi-K2-Thinking", "contextLength": 256000 },
+            "deepseek-v3-2-volc":      { "name": "DeepSeek-V3.2", "contextLength": 96000 },
+            "deepseek-v3-1-volc":      { "name": "DeepSeek-V3-1-Terminus", "contextLength": 96000 },
+            "deepseek-v3-1-lkeap":     { "name": "DeepSeek-V3-1", "contextLength": 96000 },
+            "deepseek-v3-1":           { "name": "DeepSeek-V3.1", "contextLength": 96000 },
+            "deepseek-r1-0528-lkeap":  { "name": "DeepSeek-R1-0528", "contextLength": 96000 },
+            "hunyuan-2.0-instruct":    { "name": "Hunyuan-2.0-Instruct", "contextLength": 128000 },
+            "hunyuan-chat":            { "name": "Hunyuan-Turbos", "contextLength": 128000 },
+          }
+        },
         "zhipu-anthropic": {
             "npm": "@ai-sdk/anthropic",
             "options": {
